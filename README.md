@@ -9,3 +9,5 @@ Project Page: <http://huntit.github.io/PollutionSolution>
 * Asset Serialization Mode → *Force Text*
 
 * Save the scene and project from File menu
+
+## Download the Github for Windows application: <https://windows.github.com/>
