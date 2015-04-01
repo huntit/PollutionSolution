@@ -10,4 +10,5 @@ Project Page: <http://huntit.github.io/PollutionSolution>
 
 * Save the scene and project from File menu
 
-## Download the Github for Windows application: <https://windows.github.com/>
+## Download the Github for Windows application: 
+<https://windows.github.com/>
