@@ -157,14 +157,55 @@ public class PlayerController : MonoBehaviour
 
 	// instantiate a new projectile and fire it
 	// called from the animation at the correct keyframe
-	public void fireProjectile()
+	public void FireProjectile()
 	{
 //		Vector3 projectilePos = new Vector3 (transform.position.x + (0.2f * transform.localScale.x), transform.position.y, 0);
+		this.PlayProjectileSound();
 		GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
+		clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
 //		clone.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
 
 		//clone.velocity = transform.TransformDirection(Vector3.forward * 10);
 	}
+
+	void PlayProjectileSound() 
+	{
+		// get the firingSound property audio clip for the attached Projectile script, and play it
+		if (projectile.GetComponent<Projectile>().firingSound) 
+		{ 
+			AudioSource.PlayClipAtPoint(projectile.GetComponent<Projectile>().firingSound, transform.position);
+		}
+
+	}
+
+	/**
+	void PlayLeftFootSound () {
+		if (leftFootSound) {
+			AudioSource.PlayClipAtPoint(leftFootSound, transform.position);
+		}
+	}
+	
+	void PlayRightFootSound () {
+		if (rightFootSound) {
+			AudioSource.PlayClipAtPoint(rightFootSound, transform.position);
+		}
+	}
+	
+	void PlayJetpackSound() {
+		if (!jetpackSound || GameObject.Find("RocketSound"))
+			return;
+		
+		GameObject go = new GameObject("RocketSound");
+		AudioSource aSrc = go.AddComponent<AudioSource>();
+		aSrc.clip = jetpackSound;
+		aSrc.volume = 0.7f;
+		aSrc.Play ();	
+		
+		Destroy(go,jetpackSound.length);
+	}
+**/
+
+
 
 }

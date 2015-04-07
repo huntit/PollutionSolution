@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21260336}
   - 50: {fileID: 5027778}
   - 60: {fileID: 6027696}
-  - 114: {fileID: 11485384}
+  - 114: {fileID: 11436690}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -67,7 +67,7 @@ PolygonCollider2D:
       - {x: .165000007, y: -.0350000001}
       - {x: .165000007, y: .0450000018}
       - {x: .155000001, y: .0549999997}
---- !u!114 &11485384
+--- !u!114 &11436690
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -75,9 +75,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 196712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a260865a2d08d4e8789e880c5542c4ba, type: 3}
+  m_Script: {fileID: 11500000, guid: c878ae0074bb6476faa2a1c22398a3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firingSound: {fileID: 8300000, guid: 289e6328efa3c4bd89180809a5dfedb6, type: 3}
+  impactSound: {fileID: 8300000, guid: c77b9aa6ce11941e7955fc1bf20cd9b1, type: 3}
 --- !u!212 &21260336
 SpriteRenderer:
   m_ObjectHideFlags: 1
