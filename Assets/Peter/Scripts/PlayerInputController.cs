@@ -1,6 +1,6 @@
 /*
  * PlayerInputController.cs
- * modified by Peter Hunt (from Platformer2DUserController script in the UnityStandardAssets._2D package)
+ * by Peter Hunt (some code modified from Platformer2DUserController script in the UnityStandardAssets._2D package)
  * 
  * Handles player input in a cross platform manner, for controlling a 2D character, with left, right and jump
  * 
@@ -20,6 +20,7 @@ public class PlayerInputController : MonoBehaviour
 	private PlayerController playerController;	// reference to the PlayerController to pass Move() instructions to
     private bool jumpPressed;
 	private bool firePressed;
+	private bool superJumpPressed;
 
 	private void Awake()
     {
@@ -40,29 +41,24 @@ public class PlayerInputController : MonoBehaviour
     {
     	// Read the inputs.
     	float h = CrossPlatformInputManager.GetAxis("Horizontal");
+		float v = CrossPlatformInputManager.GetAxis("Vertical");
 		bool crouch = Input.GetKey(KeyCode.LeftShift);
 
-		/**
-		if (shoot) { shoot = false; }
-		else if (firePressed && !shoot) { shoot = true; }
-		else { shoot = false; }
-**/
-
-		//bool shoot = Input.GetKey(KeyCode.Space);
-		float v = CrossPlatformInputManager.GetAxis("Vertical");
-		if (CrossPlatformInputManager.GetButton("Jump") && CrossPlatformInputManager.GetButton("Fire1"))
+		if (firePressed && CrossPlatformInputManager.GetButton("Jump"))
 		{
 			Debug.Log("FIRE UP !!");
 		} 
-		else if (v < 0f && CrossPlatformInputManager.GetButton("Fire1"))
+		else
+		if (firePressed && v < 0f)
 		{
-			Debug.Log("FIRE DOWN - TURBO JUMP !!");
-
+			Debug.Log("FIRE DOWN - SUPER JUMP !!");
+			superJumpPressed = true;
 		}
     	// Pass all parameters to the character control script.
-    	playerController.Move(h, crouch, jumpPressed, firePressed);
+    	playerController.Move(h, crouch, jumpPressed, firePressed, superJumpPressed);
     	jumpPressed = false;
 		firePressed = false;
+		superJumpPressed = false;
     }
 
 }
