@@ -16,8 +16,10 @@ public class PlayerController : MonoBehaviour
 {
 	public bool inWater;
 	
-	//public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-    //public float jumpForce = 400f;                  // Amount of force added when the player jumps.
+	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
+    public float jumpForce = 400f;                  // Amount of force added when the player jumps.
+	public float superJumpForce = 600f;                  // Amount of force added when the player jumps.
+
     public bool airControl = false;                 // Whether or not a player can steer while jumping;
     public LayerMask whatIsGround;                  // A mask determining what is ground to the character
 	public LayerMask whatIsWater;                  // A mask determining what is water to the character
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;							// Reference to the Rigidbody2D component
     private bool facingRight = true;  				// For determining which way the player is currently facing.
 	private Transform shootingPosition;    		    // A position marking where to shoot projectiles from.
-	private PlayerStats playerStats;				// Reference to the Player Statistics object for this player
+//	private PlayerStats playerStats;				// Reference to the Player Statistics object for this player
 
 	private void Awake()
 	{
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
          anim = GetComponent<Animator>();
          rb = GetComponent<Rigidbody2D>();
-		 playerStats = GetComponent<PlayerStats>();
+//		 playerStats = GetComponent<PlayerStats>();
 	}
 
 	private void FixedUpdate()
@@ -117,7 +119,7 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat("Speed", Mathf.Abs(move));
 
             // Move the character in the x axis
-            rb.velocity = new Vector2(move * playerStats.MaxSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
 
             // If changing direction, flip the player left/right
 			if ((move > 0 && !facingRight) || (move < 0 && facingRight))
@@ -134,19 +136,21 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Ground", false);
 
 			// Add a vertical force to the player
-			rb.AddForce(new Vector2(0f, playerStats.JumpForce));
+			rb.AddForce(new Vector2(0f, jumpForce));
         }
 
 
 		// SUPERJUMP ...
-		if (grounded && superJump && playerStats.CanShootProjectile() && anim.GetBool("Ground"))
+		if (grounded && superJump /*&& *CanShootProjectile()*/ && anim.GetBool("Ground"))
 		{
 			grounded = false;
 			anim.SetBool("Ground", false);
 			
 			// Add a vertical force to the player
-			rb.AddForce(new Vector2(0f, playerStats.SuperJumpForce));
+			rb.AddForce(new Vector2(0f, superJumpForce));
+			/*
 			playerStats.ReduceAirForProjectileShot();	
+			*/
 		}
 
 		
@@ -193,15 +197,33 @@ public class PlayerController : MonoBehaviour
 	// called from the animation at the correct keyframe
 	public void FireProjectile()
 	{
+		/*
 		if (playerStats.CanShootProjectile())
 		{
+		*/
 			this.PlayProjectileSound();
-			playerStats.ReduceAirForProjectileShot();
+
+			/* playerStats.ReduceAirForProjectileShot(); */
 			GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
 			clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
-			clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
 
+		/**
+		   ParticleSystem exp = GetComponent<ParticleSystem>();
+			exp.Play();
+		//	Destroy(gameObject, exp.duration);
+***/
+
+
+
+		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
+
+		Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);
+
+		/*
 		}
+		*/
+
+
 	}
 
 	private void PlayProjectileSound() 

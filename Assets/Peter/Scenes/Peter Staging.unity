@@ -395,7 +395,7 @@ Transform:
   - {fileID: 1076638386}
   - {fileID: 140638134}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!50 &374926246
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -446,13 +446,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa526337c28ed431fb3ac7fec466ab4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 13
+  inWater: 0
+  maxSpeed: 15
   jumpForce: 700
-  crouchSpeed: .360000014
+  superJumpForce: 1000
   airControl: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 257
+  whatIsWater:
+    serializedVersion: 2
+    m_Bits: 0
   projectile: {fileID: 196712, guid: 56779d502551841a891cb3fc596b52e1, type: 2}
   projectileForce: 15
 --- !u!58 &374926250
@@ -570,7 +574,7 @@ Transform:
   m_LocalScale: {x: 54.9544334, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
 --- !u!1 &612622398
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +716,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18fcd494ab71841d695135246693eb3a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &860091769
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.44000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.94999981
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: .00122271595
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -.707097709
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -.00122268812
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -.707113802
+      objectReference: {fileID: 0}
+    - target: {fileID: 470040, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f212239fe7e3e4eb4ba91d8268d72199, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1076638385
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +835,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18fcd494ab71841d695135246693eb3a, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1232290199
+--- !u!1 &1232290199 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100010, guid: 674c23718320e9d498cdad2a5bcd576a, type: 2}
   m_PrefabInternal: {fileID: 1640011392}
@@ -1052,13 +1098,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa526337c28ed431fb3ac7fec466ab4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inWater: 0
   maxSpeed: 10
-  jumpForce: 600
-  crouchSpeed: .360000014
+  jumpForce: 400
+  superJumpForce: 600
   airControl: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  whatIsWater:
+    serializedVersion: 2
+    m_Bits: 0
   projectile: {fileID: 0}
   projectileForce: 5
 --- !u!50 &1580389328
