@@ -2,7 +2,7 @@
  * PlayerInputController.cs
  * by Peter Hunt (some code modified from Platformer2DUserController script in the UnityStandardAssets._2D package)
  * 
- * Handles player input in a cross platform manner, for controlling a 2D character, with left, right and jump
+ * Handles player input in a cross platform manner, for controlling a 2D character, with left, right, shoot, jump and super-jump
  * 
  */
  
@@ -42,7 +42,7 @@ public class PlayerInputController : MonoBehaviour
     	// Read the inputs.
     	float h = CrossPlatformInputManager.GetAxis("Horizontal");
 		float v = CrossPlatformInputManager.GetAxis("Vertical");
-		bool crouch = Input.GetKey(KeyCode.LeftShift);
+		//bool crouch = Input.GetKey(KeyCode.LeftShift);
 
 		if (firePressed && CrossPlatformInputManager.GetButton("Jump"))
 		{
@@ -55,7 +55,7 @@ public class PlayerInputController : MonoBehaviour
 			superJumpPressed = true;
 		}
     	// Pass all parameters to the character control script.
-    	playerController.Move(h, crouch, jumpPressed, firePressed, superJumpPressed);
+		playerController.Move(h, jumpPressed, superJumpPressed, firePressed);
     	jumpPressed = false;
 		firePressed = false;
 		superJumpPressed = false;
