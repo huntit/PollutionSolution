@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AirBar : MonoBehaviour {
+public class PoisonIcon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,10 +11,5 @@ public class AirBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-	}
-
-	public void IncreaseAir(float amount)
-	{
-		Debug.Log (amount.ToString());
 	}
 }
