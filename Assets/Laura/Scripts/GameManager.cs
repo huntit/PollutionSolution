@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
-	private int currentLevel;
+	private static int currentLevel = 0;
 	// Use this for initialization
 	
 	//makes sure the HUD elements don't show on the start screen  - code for this is in Awake and Start
@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
 												
 	public void LoadNextLevel()
 	{
-		//	currentLevel = currentLevel + 1
+		currentLevel = currentLevel + 1;
+		Application.LoadLevel (currentLevel);
 		//	Load Scene currentLevel
 	}
 	
@@ -64,5 +65,11 @@ public class GameManager : MonoBehaviour
 		//	then load scene Win Screen
 		//	Else if next level
 		//	LoadNextLevel()
+	}
+
+	public void QuitGame()
+	{
+		UnityEditor.EditorApplication.isPlaying = false; //Stop when running in Editor
+		Application.Quit (); //Stop when running for real
 	}
 }
