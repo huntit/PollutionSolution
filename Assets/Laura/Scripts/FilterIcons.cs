@@ -1,20 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FilterIcons : MonoBehaviour {
+public class FilterIcons : MonoBehaviour 
+{
+	//		filterPieceCount = 0
+	//		filterPartCollected(0)
+	//		filterPartCollected(1)
+	//		filterPartCollected(2)
+	//		filterPartCollected(3)
+
 	public bool[] filterPartsCollected;
 	// Use this for initialization
-	void Start () {
-		filterPartsCollected = new bool[] {false, false, false, false};
+	void Start () 
+	{
+//		//Each piece of filter is placed permanently onto the level, set to Trigger
+//		//these are the sprites that show on HUD screen
+//		Set all FilterPartSprites to 50% saturation
+//		filterPartsCollected = new bool[] {false, false, false, false};
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	
 	}
 
 	public void DrawFilterPartsCollected()
 	{
-		//Pass
+//		displays each piece of the filter when each piece is collected
+//		for each item in filterPartCollected, 
+//		change saturation of FilterPartSprites to 100%
 	}
 }
+		
