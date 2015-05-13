@@ -3,13 +3,15 @@ using System.Collections;
 
 public class Door : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	public void OpenDoor()
+	{
+		//Animate door
+		//Disable Collider2D
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void CloseDoor()
+	{
+		//Animate door
+		//Enable Collider2D
 	}
 }

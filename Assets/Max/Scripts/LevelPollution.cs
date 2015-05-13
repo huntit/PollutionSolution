@@ -23,3 +23,20 @@ public class LevelPollution : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 	}
 }
+
+/*
+ * This script makes the level progressively obscured by pollution (a black quad)
+ * over the course of five minutes, at which point the screen is completely covered and the player will lose.
+ * 
+ * int secondsElapsed = 0
+ * int totalSecondsAllowed = 300
+ * Start()
+ * Call FadeScreen() coroutine
+ *
+ * Update()
+ * if secondsElapsed >= totalSecondsAllowed, call GameManager.LoseGame()
+ *
+ * IEnumerator FadeScreen()
+ * Set opacity of quad to min(secondsElapsed/totalSecondsAllowed, 1),
+ * increase secondsElapsed by 1, and then wait one second before repeating
+ */

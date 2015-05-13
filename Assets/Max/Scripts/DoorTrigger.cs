@@ -2,14 +2,17 @@
 using System.Collections;
 
 public class DoorTrigger : MonoBehaviour {
+	public Door door;
 
-	// Use this for initialization
-	void Start () {
-	
+	private void OnTriggerEnter2D(Collider2D collider)
+	{
+		//Animate trigger going down
+		door.OpenDoor();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	private void OnTriggerExit2D(Collider2D collider)
+	{
+		//Animate trigger going up
+		door.CloseDoor();
 	}
 }
