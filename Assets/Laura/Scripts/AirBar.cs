@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class AirBar : MonoBehaviour {
 	private float air = 5;
+	public Slider healthBarSlider;
 
 	// Use this for initialization
 	void Start()
