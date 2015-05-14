@@ -9,7 +9,7 @@ public class HealthPack : MonoBehaviour {
 	{
 		if (collider.CompareTag("Avatar"))
 		{
-			healthBar.IncreaseHealth(healthAmount);
+//			healthBar.IncreaseHealth(healthAmount);
 			// Play pickup sound
 			Destroy(gameObject);
 		}
