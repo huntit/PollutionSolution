@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Collectible
   - Avatar Projectile
+  - Fire
+  - Fader
   layers:
   - Default
   - TransparentFX

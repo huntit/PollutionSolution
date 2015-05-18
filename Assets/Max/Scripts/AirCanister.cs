@@ -9,7 +9,7 @@ public class AirCanister : MonoBehaviour {
 	{
 		if (collider.CompareTag("Avatar"))
 		{
-			airBar.IncreaseAir(airAmount);
+//			airBar.IncreaseAir(airAmount); uncomment when airBar works
 			// Play pickup sound
 			Destroy(gameObject);
 		}

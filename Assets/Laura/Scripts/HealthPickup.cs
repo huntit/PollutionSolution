@@ -19,5 +19,6 @@ public class HealthPickup : MonoBehaviour
 	void Update() 
 	{
 		healthBar.Health = healthBar.Health - 10f * Time.deltaTime;
+
 	}
 }

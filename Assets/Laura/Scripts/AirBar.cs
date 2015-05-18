@@ -2,14 +2,17 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class AirBar : MonoBehaviour {
-	private float air = 5;
-	public Slider healthBarSlider;
+public class AirBar : MonoBehaviour 
+{
+	public AirBar airBar;
+
+	private Slider airSlider;
+	private float air = 100f;
 
 	// Use this for initialization
 	void Start()
 	{
-		air = 100;
+		airSlider = GetComponent<Slider>();
 	}
 
 	void FixedUpdate()
@@ -22,24 +25,31 @@ public class AirBar : MonoBehaviour {
 		//		HealthBar.ReduceHealth(amount * time.DeltaTime)
 	}
 
-	public void ReduceAir(float amount)
+	public float Air
 	{
-//		air = air - amount
-//			DrawAirBar()
+		get
+		{
+			return air;
+		}
+		set
+		{
+			air = value;
+			
+			//			transform.localScale = new Vector3(Health/100f, 1f, 1f);
+			airSlider.value = Air;
+
+			if (value <= 0f)
+			{
+				Debug.Log("AAAAAAAAARGH!");
+			}
+
+		}
 	}
-//			
-	public void IncreaseAir(float amount)
+
+	public void IncreaseAir()
 	{
-//			air = air + amount
-//			DrawAirBar()
+		airBar.Air = airBar.Air - 10f * Time.deltaTime; 
 	}
-	
-	// Update is called once per frame
-
-	void DrawAirBar()
-	{
-		//changes the scale of the air bar
-	}
-
-
 }
+
+

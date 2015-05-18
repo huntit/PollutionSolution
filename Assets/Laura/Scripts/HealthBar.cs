@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -7,24 +7,10 @@ public class HealthBar : MonoBehaviour
 	private Slider healthSlider;
 	private float health = 100f;
 
-	//public float health = 100;
-
 	// Use this for initialization
 	void Start () 
 	{
-		healthSlider = GetComponent<Slider> ();
-		//health = 100
-			
-		//ReduceHealth(float amount)
-		//health = health - amount
-		//DrawHealthBar()
-		//
-		//if health <= 0
-		//GameManager.LoseGame()
-		//
-		//IncreaseHealth(float amount)
-		//health = health + amount
-		//DrawHealthBar()
+		healthSlider = GetComponent<Slider>();
 	}
 	
 	// Update is called once per frame
@@ -49,7 +35,13 @@ public class HealthBar : MonoBehaviour
 			if (value <= 0f)
 			{
 				Debug.Log("AAAAAAAAARGH!");
+				//load level, reset health to 100f
 			}
+
+//			if ()
+//			{
+//				healhSlider.value = ;
+//			}
 		}
 	}
 
