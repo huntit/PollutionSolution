@@ -1326,7 +1326,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11479502, guid: 62c73658e4e854adaa6c92c62c953c4d, type: 2}
       propertyPath: inWater
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11479502, guid: 62c73658e4e854adaa6c92c62c953c4d, type: 2}
       propertyPath: poisonIcon
@@ -1403,7 +1403,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &2019168918 stripped
+--- !u!114 &2019168918
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11479502, guid: 62c73658e4e854adaa6c92c62c953c4d,
     type: 2}
