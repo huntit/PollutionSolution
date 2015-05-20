@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthPack : MonoBehaviour {
+public class HealthPack : MonoBehaviour
+{
 	private float healthAmount = 10f;
 	public HealthBar healthBar;
 	
@@ -9,7 +10,7 @@ public class HealthPack : MonoBehaviour {
 	{
 		if (collider.CompareTag("Avatar"))
 		{
-//			healthBar.IncreaseHealth(healthAmount);
+			healthBar.Health += healthAmount;
 			// Play pickup sound
 			Destroy(gameObject);
 		}

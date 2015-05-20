@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AirCanister : MonoBehaviour {
+public class AirCanister : MonoBehaviour
+{
 	private float airAmount = 10f;
 	public AirBar airBar;
 
@@ -9,7 +10,7 @@ public class AirCanister : MonoBehaviour {
 	{
 		if (collider.CompareTag("Avatar"))
 		{
-//			airBar.IncreaseAir(airAmount); uncomment when airBar works
+			airBar.Air += airAmount;
 			// Play pickup sound
 			Destroy(gameObject);
 		}
