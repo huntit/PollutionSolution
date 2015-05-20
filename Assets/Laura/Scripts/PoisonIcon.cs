@@ -1,28 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PoisonIcon : MonoBehaviour {
-	//bool poisoned false
-	//var poisioned until =
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
+public class PoisonIcon : MonoBehaviour 
+{
+	[Range(0, 10)] public float poisonTime = 2f;
+	[Range(1, 20)] public float healthLossPerSec = 10f;
+	public HealthBar healthBar;
+
+	private bool poisoned;
+	private float poisonFinishTime;
+
+	public bool Poisoned
 	{
-//		if poisoned = true
-//		ReduceHealth(5 * time.Delta time)
-//		check if 5 seconds is up, if so: 
-//		set poisoned to false
-//		PoisonIcon.alpha = 0
+		get { return poisoned; }
+		
+		set
+		{
+			poisoned = value;
+				
+			gameObject.GetComponent<SpriteRenderer>().enabled = poisoned;
+
+			if (poisoned)
+			{
+				poisonFinishTime = Time.time + poisonTime;
+			}
+			
+		}
+	}
+
+	private void Start()
+	{
+		Poisoned = false;
+	}
+
+	void FixedUpdate()
+	{
+		//If you are poisoned, lose health
+		if (poisoned)
+		{
+			healthBar.Health -= healthLossPerSec * Time.fixedDeltaTime;
+			//check if poison time is finished, set poisoned to false
+			if (Time.time >= poisonFinishTime)
+			{
+				Poisoned = false;
+			}
+		}
+
 	}
 }
-
-	//void PoisonPlayer()
-//	{
-////		poisoned = true
-////		set start time for poisoning
-////		PoisonIcon.alpha = 100
-//	}

@@ -11,6 +11,8 @@ using UnityEngine;
 
 public class AvatarController : MonoBehaviour
 {
+	public PoisonIcon poisonIcon;
+
 	public bool inWater;
 	
 	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
@@ -30,6 +32,9 @@ public class AvatarController : MonoBehaviour
     private Animator anim;            				// Reference to the player's animator component.
     private Rigidbody2D rb;							// Reference to the Rigidbody2D component
     private bool facingRight = true;  				// For determining which way the player is currently facing.
+	private bool facingUp;  				
+	private bool invulnerable;						// Whether the avatar is currently invulnerable.
+
 	private Transform shootingPosition;    		    // A position marking where to shoot projectiles from.
 //	private PlayerStats playerStats;				// Reference to the Player Statistics object for this player
 
@@ -101,6 +106,22 @@ public class AvatarController : MonoBehaviour
 				break;
 		}
 	}
+
+
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		Debug.Log("On Collision Enter");
+		
+		switch (collision.gameObject.tag)
+		{
+			case "Enemy": 
+			{
+				poisonIcon.Poisoned = true;
+			}				
+			break;
+		}
+	}
+
 
 	// Called from PlayerInput Controller
 	// Moves the player left/right, jump, super-jump and shoot

@@ -4,12 +4,35 @@ using UnityEngine.UI;
 
 public class AirBar : MonoBehaviour 
 {
-	public AirBar airBar;
+	public HealthBar healthBar;
+	public AvatarController avatar;
+
+	[Range(1, 20)] public float healthLossPerSec = 10f;
+	[Range(1, 20)] public float drownRate = 5f;
 
 	private Slider airSlider;
 	private float air = 100f;
 
-	// Use this for initialization
+	public float Air	
+	{
+		get { return air; }
+
+		set
+		{
+			// keep the air to be between 0 and 100
+			air = Mathf.Clamp(value, 0f, 100f);
+			air = value;
+
+			if (value <= 0f)
+			{
+				Debug.Log("OUT OF AIR!");
+			} 
+
+
+			airSlider.value = Air;
+		}
+	}
+
 	void Start()
 	{
 		airSlider = GetComponent<Slider>();
@@ -17,39 +40,20 @@ public class AirBar : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		//		// consume air while under water 
-		//		if Avatar.inWater
-		//		ReduceAir(amount * time.DeltaTime)
-		//		// if out of air and under water, lose health
-		//		if air <= 0
-		//		HealthBar.ReduceHealth(amount * time.DeltaTime)
-	}
-
-	public float Air
-	{
-		get
+		//If you run out of air, lose health
+		if (air <= 0f)
 		{
-			return air;
+			healthBar.Health -= healthLossPerSec * Time.fixedDeltaTime; 
 		}
-		set
+		// consume air while under water
+		if (avatar.inWater)
 		{
-			air = value;
-			
-			//			transform.localScale = new Vector3(Health/100f, 1f, 1f);
-			airSlider.value = Air;
-
-			if (value <= 0f)
-			{
-				Debug.Log("AAAAAAAAARGH!");
-			}
-
+			Debug.Log ("I'm in the water!");
+			Air -= drownRate * Time.fixedDeltaTime;
 		}
+
 	}
 
-	public void IncreaseAir()
-	{
-		airBar.Air = airBar.Air - 10f * Time.deltaTime; 
-	}
 }
 
 

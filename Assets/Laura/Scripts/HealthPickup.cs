@@ -5,6 +5,7 @@ public class HealthPickup : MonoBehaviour
 {
 
 	public HealthBar healthBar;
+	public AirBar airBar;
 
 	// Use this for initialization
 	void Start() 
@@ -18,7 +19,7 @@ public class HealthPickup : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
-		healthBar.Health = healthBar.Health - 10f * Time.deltaTime;
-
+//		healthBar.Health = healthBar.Health - 10f * Time.deltaTime;
+//		airBar.Air -= 5f * Time.deltaTime;
 	}
 }
