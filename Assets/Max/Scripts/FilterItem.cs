@@ -5,12 +5,12 @@ public class FilterItem : MonoBehaviour {
 	public int filterID;
 	public FilterIcons filterIcons;
 
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (collider.CompareTag("Avatar"))
+		if (other.CompareTag("Avatar"))
 		{
-			filterIcons.filterPartsCollected[filterID] = true;
-			filterIcons.DrawFilterPartsCollected();
+			//filterIcons.filterPartsCollected[filterID] = true;
+			//filterIcons.DrawFilterPartsCollected();
 			// Play pickup sound
 			Destroy(gameObject);
 		}

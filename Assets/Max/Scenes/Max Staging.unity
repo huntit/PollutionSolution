@@ -150,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 36670343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.86770082, y: 1.55641937, z: 0}
+  m_LocalPosition: {x: -2.81999993, y: .629999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filterID: 2
-  filterIcons: {fileID: 0}
+  filterIcons: {fileID: 696101621}
 --- !u!212 &530908838
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filterID: 0
-  filterIcons: {fileID: 0}
+  filterIcons: {fileID: 696101621}
 --- !u!212 &598173176
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 978073746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3499999, y: 6.92999983, z: 0}
+  m_LocalPosition: {x: 1.98000002, y: 6.86000013, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filterID: 3
-  filterIcons: {fileID: 0}
+  filterIcons: {fileID: 696101621}
 --- !u!212 &1206083083
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -991,7 +991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filterID: 1
-  filterIcons: {fileID: 0}
+  filterIcons: {fileID: 696101621}
 --- !u!212 &1322442494
 SpriteRenderer:
   m_ObjectHideFlags: 0
