@@ -6,11 +6,13 @@ public class Platform : MonoBehaviour
 	// Transform startPosition, endPosition;
 	public float moveTime;
 	private bool travelBackwards = false;
+	public Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start ()
 	{
 		// startPosition = this.GetComponent<GameObject>().Transform; // Investigate proper phrasing
+		rb.AddForce (-100f *Vector2.right);
 	}
 	
 	// Update is called once per frame
