@@ -30,11 +30,12 @@ public class PoisonIcon : MonoBehaviour
 			if (poisoned)
 			{
 				poisonFinishTime = Time.time + poisonTime;
-				InvokeRepeating("BlinkIcon", 0f, 0.5f);
+				StartCoroutine("BlinkIcon");
+//				InvokeRepeating("BlinkIcon", 1f, 0.5f);
 			} 
 			else
 			{
-				CancelInvoke("BlinkIcon");
+//				CancelInvoke("BlinkIcon");
 				gameObject.GetComponent<Image>().enabled = false;
 			}
 		}
@@ -62,9 +63,27 @@ public class PoisonIcon : MonoBehaviour
 	}
 
 	// Blinks the poisoned icon on and off
+	IEnumerator BlinkIcon()
+	{
+		while (poisoned)
+		{
+			yield return new WaitForSeconds(0.4f);
+			gameObject.GetComponent<Image>().enabled = false; // icon off
+			yield return new WaitForSeconds(0.4f);
+			gameObject.GetComponent<Image>().enabled = true; // icon on
+
+		}
+
+		// no longer poisoned, so icon off
+		gameObject.GetComponent<Image>().enabled = false;
+	}
+
+	/*
+	// Blinks the poisoned icon on and off
 	void BlinkIcon()
 	{
-		Debug.Log ("BlinkIcon !!!");
+		Debug.Log("BlinkIcon !!!");
 		gameObject.GetComponent<Image>().enabled = !gameObject.GetComponent<Image>().enabled;
 	}
+	*/
 }
