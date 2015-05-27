@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa526337c28ed431fb3ac7fec466ab4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poisonIcon: {fileID: 0}
   inWater: 0
   maxSpeed: 15
   jumpForce: 700

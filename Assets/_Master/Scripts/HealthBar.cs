@@ -1,3 +1,10 @@
+/* 
+ * HealthBar Script by Laura Yarnold
+ * 
+ * Updates on-screen slider health bar
+ * 
+ */ 
+
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;

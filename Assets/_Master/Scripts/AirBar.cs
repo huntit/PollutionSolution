@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/* 
+ * AirBar Script by Laura Yarnold
+ * 
+ * 
+ * 
+ */ 
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 

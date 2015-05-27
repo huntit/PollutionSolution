@@ -1,5 +1,5 @@
 /*
- * PlayerController.cs
+ * AvatarController.cs
  * by Peter Hunt (uses ideas from PlatformerCharacter2D script in the UnityStandardAssets._2D package)
  * 
  * Script to control player movement, including left, right, jump (if grounded), and crouch

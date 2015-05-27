@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Laura/Scenes/StartScreenUI.unity
-  - enabled: 1
+    path: Assets/_Master/Scenes/Start Screen.unity
+  - enabled: 0
     path: Assets/Laura/Scenes/Laura Staging.unity
+  - enabled: 1
+    path: Assets/_Master/Scenes/Level 1.unity
