@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FilterIcons : MonoBehaviour 
 {
-	//		filterPieceCount = 0
+	public float filterPieceCount = 0f;
 	//		filterPartCollected(0)
 	//		filterPartCollected(1)
 	//		filterPartCollected(2)
@@ -22,6 +22,7 @@ public class FilterIcons : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
 	
 	}
 
@@ -31,5 +32,14 @@ public class FilterIcons : MonoBehaviour
 //		for each item in filterPartCollected, 
 //		change saturation of FilterPartSprites to 100%
 	}
+
+	public void OnTriggerEnter2D(Collider2D target)
+	{
+		if (target.gameObject.tag == "Avatar")
+			Debug.Log ("Collected filter piece!");
+			Destroy (gameObject);
+	}
+		
 }
+
 		
