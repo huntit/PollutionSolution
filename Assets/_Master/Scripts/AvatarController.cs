@@ -11,42 +11,45 @@ using UnityEngine;
 
 public class AvatarController : MonoBehaviour
 {
-	public PoisonIcon poisonIcon;
-
-	public bool inWater;
-	
+	// variables to be tweaked in the editor
+	public float airPerProjectile = 5f;				// Air used per airgun shot
+	public float airPerSuperJump = 10f;				// Air used per superjump
+	public float healthPerHit = 10f;
+	public float projectileForce = 10f;				// Force applied to the projectile when it is shot
 	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-    public float jumpForce = 400f;                  // Amount of force added when the player jumps.
-	public float superJumpForce = 600f;                  // Amount of force added when the player jumps.
+	public float jumpForce = 400f;                  // Amount of force added when the player jumps.
+	public float superJumpForce = 600f;             // Amount of force added when the player jumps.
+	public bool airControl = false;                 // Whether or not a player can steer while jumping;
+	public LayerMask whatIsGround;                  // A mask determining what is ground to the character
+	public LayerMask whatIsWater;                   // A mask determining what is water to the character
 
-    public bool airControl = false;                 // Whether or not a player can steer while jumping;
-    public LayerMask whatIsGround;                  // A mask determining what is ground to the character
-	public LayerMask whatIsWater;                  // A mask determining what is water to the character
+	// references to other objects
+	public PoisonIcon poisonIcon;
+	public AirBar airBar;
 
 	public GameObject projectile;					// Projectile prefab that the player shoots
-	public float projectileForce = 5.0f;			// Force applied to the projectile when it is shot
+
+	public bool inWater;							// whether the avatar is in the water
+
+	private bool grounded;            				// whether or not the player is grounded
+	private bool facingRight = true;  				// for determining which way the player is currently facing in the x axis
+	private bool facingUp;  						// for determining which  way the player is currently facing in the y axis when swimming
+	private bool invulnerable;						// whether the avatar is currently invulnerable.
 
     private Transform groundCheck;    				// A position marking where to check if the player is grounded.
     const float GROUNDED_RADIUS = .2f; 				// Radius of the overlap circle to determine if grounded
-    private bool grounded;            				// Whether or not the player is grounded.
     private Animator anim;            				// Reference to the player's animator component.
     private Rigidbody2D rb;							// Reference to the Rigidbody2D component
-    private bool facingRight = true;  				// For determining which way the player is currently facing.
-	private bool facingUp;  				
-	private bool invulnerable;						// Whether the avatar is currently invulnerable.
-
 	private Transform shootingPosition;    		    // A position marking where to shoot projectiles from.
-//	private PlayerStats playerStats;				// Reference to the Player Statistics object for this player
+
 
 	private void Awake()
 	{
 		// set references
          groundCheck = transform.Find("GroundCheck");
 		 shootingPosition = transform.Find("ShootingPosition");
-
          anim = GetComponent<Animator>();
          rb = GetComponent<Rigidbody2D>();
-//		 playerStats = GetComponent<PlayerStats>();
 	}
 
 	private void FixedUpdate()
@@ -60,35 +63,27 @@ public class AvatarController : MonoBehaviour
 		{
 			if (collider.gameObject != gameObject) { grounded = true; }
 		}
-
         anim.SetBool("Ground", grounded);
-
+		
         // Set the vertical animation
         anim.SetFloat("vSpeed", rb.velocity.y);   
 	}
 	
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag("Water"))
-		{
-			Debug.Log("In the Water");
-			inWater = true;
-		}
+		if (other.CompareTag("Water")) { inWater = true; }
 	}
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.CompareTag("Water"))
-		{
-			Debug.Log("Out of the Water");
-			inWater = false;
-		}
+		if (other.CompareTag("Water")) { inWater = false; }
 	}
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		//Debug.Log("On Collision Exit");
-
+		// Debug.Log("On Collision Exit");
+		/**
 		switch (collision.gameObject.tag)
 		{
 			case "Water": 
@@ -105,6 +100,7 @@ public class AvatarController : MonoBehaviour
 				}
 				break;
 		}
+		***/
 	}
 
 
@@ -159,16 +155,19 @@ public class AvatarController : MonoBehaviour
 
 
 		// SUPERJUMP ...
-		if (grounded && superJump /*&& *CanShootProjectile()*/ && anim.GetBool("Ground"))
+//		if (grounded && superJump && CanShootAirGun() && anim.GetBool("Ground"))
+		if (grounded && superJump && CanSuperJump())
 		{
 			grounded = false;
 			anim.SetBool("Ground", false);
-			
+
+			airBar.Air -= airPerSuperJump;	// reduce air for superjump
+
 			// Add a vertical force to the player
 			rb.AddForce(new Vector2(0f, superJumpForce));
-			/*
-			playerStats.ReduceAirForProjectileShot();	
-			*/
+
+			shoot = false;
+
 		}
 
 		
@@ -181,14 +180,13 @@ public class AvatarController : MonoBehaviour
 **/
 
 		// SHOOT ...
-		if (shoot)
+		if (shoot && CanShootAirGun())
 		{
-			// if not already shooting, run the animation
+			// if not already shooting, run the shoot animation
 			if (!anim.GetBool("Shoot")) 
 			{
 			   Debug.Log("Fire !!");
 			   anim.SetBool("Shoot", true);	// Run the shoot animation (and fires the projectile at the correct keyframe)
-			   //fireProjectile();
 			}
 			shoot = false;
 		}
@@ -199,6 +197,7 @@ public class AvatarController : MonoBehaviour
 
 
 	}
+
 
 	private void Flip()
 	{
@@ -211,39 +210,46 @@ public class AvatarController : MonoBehaviour
         transform.localScale = theScale;
 	}
 
+
+	// Check if there is enough air available to shoot the air gun
+	private bool CanShootAirGun()
+	{
+		return (airBar.Air >= airPerProjectile);
+	}
+
+	// Check if there is enough air available to superjump, and the avatar is grounded
+	private bool CanSuperJump()
+	{
+		return (grounded && airBar.Air >= airPerSuperJump && anim.GetBool("Ground"));
+	}
+
+
 	// instantiate a new projectile and fire it
 	// called from the animation at the correct keyframe
 	public void FireProjectile()
 	{
-		/*
-		if (playerStats.CanShootProjectile())
-		{
-		*/
-			this.PlayProjectileSound();
+		// Play projectile firing sound
+		if (projectile.GetComponent<Projectile>().firingSound) 
+		{ 
+			// get the firingSound property audio clip for the attached Projectile script, and play it
+			AudioSource.PlayClipAtPoint(projectile.GetComponent<Projectile>().firingSound, transform.position);
+		}
 
-			/* playerStats.ReduceAirForProjectileShot(); */
-			GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
-			clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
+		// Instantiate a projectile prefab and tag it
+		GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
+		clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
+		clone.tag = "Avatar";
+		airBar.Air -= airPerSuperJump;	// reduce air
 
-		/**
-		   ParticleSystem exp = GetComponent<ParticleSystem>();
-			exp.Play();
-		//	Destroy(gameObject, exp.duration);
-***/
-
-
-
+		// Apply force to fire the projectile
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
 
-		Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);
-
-		/*
-		}
-		*/
-
-
+		// Instantitate the AirgunExplosion prefab particle effect
+		Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);		
 	}
 
+
+	/**
 	private void PlayProjectileSound() 
 	{
 		// get the firingSound property audio clip for the attached Projectile script, and play it
@@ -253,7 +259,7 @@ public class AvatarController : MonoBehaviour
 		}
 
 	}
-	
+	**/
 	/**
 	void PlayLeftFootSound () {
 		if (leftFootSound) {
