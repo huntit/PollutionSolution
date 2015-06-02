@@ -10,6 +10,8 @@ TagManager:
   - Avatar Projectile
   - Fire
   - Fader
+  - Water
+  - WaterWaves
   layers:
   - Default
   - TransparentFX

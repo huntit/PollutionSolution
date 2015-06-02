@@ -72,7 +72,16 @@ public class AvatarController : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag("Water")) { inWater = true; }
+		if (other.CompareTag("Water")) 
+		{ 
+			inWater = true;
+		}
+		else 
+		if (other.CompareTag("WaterWaves") && !inWater)
+		{
+			// play a splash sound
+			other.GetComponent<AudioSource>().Play();	
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D other)
