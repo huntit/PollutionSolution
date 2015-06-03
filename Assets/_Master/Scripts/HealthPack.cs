@@ -6,7 +6,7 @@ public class HealthPack : MonoBehaviour
 	public HealthBar healthBar;
 	public AudioClip pickupSound;	// sound to play when healthpack picked up
 
-	private float healthAmount = 20f;
+	[Range(1, 20)] public float healthAmount = 10f;
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
