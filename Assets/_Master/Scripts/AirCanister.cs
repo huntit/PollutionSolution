@@ -6,8 +6,7 @@ public class AirCanister : MonoBehaviour
 	public AirBar airBar;
 	public AudioClip pickupSound;	// sound to play when healthpack picked up
 
-	private float airAmount = 10f;
-
+	[Range(0, 25)] public float airAmount = 15f;
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{

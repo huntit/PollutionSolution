@@ -16,6 +16,7 @@ public class AirBar : MonoBehaviour
 
 	[Range(1, 20)] public float healthLossPerSec = 7f;
 	[Range(1, 20)] public float drownRate = 5f;
+	[Range(0, 10)] public float breatheRate = 2f;
 
 	private Slider airSlider;
 	private float air = 100f;
@@ -46,18 +47,23 @@ public class AirBar : MonoBehaviour
 
 	void FixedUpdate()
 	{
+
 		// consume air while under water
 		if (avatar.inWater)
 		{
 			Debug.Log ("I'm in the water!");
 			Air -= drownRate * Time.fixedDeltaTime;
 
-			//If you run out of air, and are in the water, lose health
+			// If you run out of air, and are in the water, lose health
 			if (air <= 0f)
 			{
 				healthBar.Health -= healthLossPerSec * Time.fixedDeltaTime; 
 			}
 
+		}
+		else // out of the water, slowly regenerate air
+		{ 
+			Air += breatheRate * Time.fixedDeltaTime;
 		}
 
 	}

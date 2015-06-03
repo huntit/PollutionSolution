@@ -80,7 +80,8 @@ public class AvatarController : MonoBehaviour
 		if (other.CompareTag("WaterWaves") && !inWater)
 		{
 			// play a splash sound
-			other.GetComponent<AudioSource>().Play();	
+			AudioSource audioSource = other.GetComponent("AudioSource") as AudioSource;
+			if (audioSource) { audioSource.Play(); }
 		}
 	}
 
