@@ -9,7 +9,10 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
+	public GameObject PauseUI;
+
 	private static int currentLevel = 0;
+	public static bool paused = false;
 	
 	//makes sure the HUD elements don't show on the start screen  - code for this is in Awake and Start
 	void Awake()
@@ -19,6 +22,7 @@ public class GameManager : MonoBehaviour
 
 	void Start () 
 	{
+		PauseUI.SetActive(false);
 		//if Current Scene Name == "Start Game" (START SCREEN)
 		//play start music
 		//give option for quit
@@ -30,19 +34,32 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if (Input.GetButtonDown ("Pause")) 
+		{ 
+			if (paused) 
+			{
+				ResumeGame();
+			}
+			else
+			{
+				PauseGame();
+			}
+			paused = !paused;
+		}
 	}		
 							
 	public void PauseGame()
 	{
-		//Overlay text to show screen is paused
-		//time.Scale = 0
+		Debug.Log ("Pausing");
+		PauseUI.SetActive (true); // show Pause Panel
+		Time.timeScale = 0; // pause game	}
 	}
-								
+
 	public void ResumeGame()
 	{
-		//delete overlay text
-		//time.Scale = 1
+		Debug.Log("Resuming");
+		PauseUI.SetActive (false); // hide Pause Panel
+		Time.timeScale = 1; // restart
 	}
 								
 	public void LoseGame()
