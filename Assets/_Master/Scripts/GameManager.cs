@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 	{
 		Debug.Log("Losing");
 		LoseScreen.SetActive(true);
-		Time.timeScale = 0;
+		Time.timeScale = 0; 
 //		Application.LoadLevel (currentLevel);
 
 		//Load scene "Lose Game"
@@ -83,11 +83,15 @@ public class GameManager : MonoBehaviour
 		//		break all code and close the game
 	}
 
-//	public void WinGame ();
-//
-//	{
-//
-//	}
+	public void WinGame()
+	{
+		Debug.Log("Winning!");
+		WinScreen.SetActive(true);
+		Time.timeScale = 0;
+		StartCoroutine("WaitForLevel");
+		LoadNextLevel();
+
+	}
 												
 	public void LoadNextLevel()
 	{
@@ -108,5 +112,10 @@ public class GameManager : MonoBehaviour
 	{
 		UnityEditor.EditorApplication.isPlaying = false; //Stop when running in Editor
 		Application.Quit (); //Stop when running for real
+	}
+
+	IEnumerator WaitforLevel() 
+	{
+		yield return new WaitForSeconds(5);
 	}
 }
