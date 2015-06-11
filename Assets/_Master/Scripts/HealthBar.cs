@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour
 	private float health = 100f;
 
 	public Image fillImage;
-
+	public GameManager gameManager;
 	public float Health
 	{
 		get { return health; }
@@ -30,6 +30,8 @@ public class HealthBar : MonoBehaviour
 			if (value <= 0f)
 			{
 				Debug.Log("AAAAAAAAARGH!");
+				gameManager.LoseGame();
+
 				//load level, reset health to 100f
 			} 
 			// update the slider with health value
