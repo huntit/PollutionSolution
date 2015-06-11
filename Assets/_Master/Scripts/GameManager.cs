@@ -10,6 +10,8 @@ using System.Collections;
 public class GameManager : MonoBehaviour 
 {
 	public GameObject PauseUI;
+	public GameObject WinScreen;
+	public GameObject LoseScreen;
 
 	private static int currentLevel = 0;
 	public static bool paused = false;
@@ -20,9 +22,11 @@ public class GameManager : MonoBehaviour
 		//Keep this object alive in all scenes (Singleton)
 	}
 
-	void Start () 
+	void Start() 
 	{
 		PauseUI.SetActive(false);
+		WinScreen.SetActive(false);
+		LoseScreen.SetActive(false);
 		//if Current Scene Name == "Start Game" (START SCREEN)
 		//play start music
 		//give option for quit
@@ -64,6 +68,11 @@ public class GameManager : MonoBehaviour
 								
 	public void LoseGame()
 	{
+		Debug.Log("Losing");
+		LoseScreen.SetActive(true);
+		Time.timeScale = 0;
+//		Application.LoadLevel (currentLevel);
+
 		//Load scene "Lose Game"
 		//Display text to tell the Player they have lost
 		//Show options for restart Game or Quit
@@ -73,6 +82,12 @@ public class GameManager : MonoBehaviour
 		//	if Quit button is pressed
 		//		break all code and close the game
 	}
+
+//	public void WinGame ();
+//
+//	{
+//
+//	}
 												
 	public void LoadNextLevel()
 	{
