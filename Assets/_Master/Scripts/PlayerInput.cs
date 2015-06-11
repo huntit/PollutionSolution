@@ -32,22 +32,22 @@ public class PlayerInput : MonoBehaviour
     private void FixedUpdate()
     {
     	// Read the inputs.
-    	float h = CrossPlatformInputManager.GetAxis("Horizontal");
-		float v = CrossPlatformInputManager.GetAxis("Vertical");
+    	float moveH = CrossPlatformInputManager.GetAxis("Horizontal");
+		float moveV = CrossPlatformInputManager.GetAxis("Vertical");
 		//bool crouch = Input.GetKey(KeyCode.LeftShift);
 
 		if (firePressed && CrossPlatformInputManager.GetButton("Jump"))
 		{
 			Debug.Log("FIRE UP !!");
 		} 
-		else if (firePressed && v < 0f)
+		else if (firePressed && moveV < 0f)
 		{
 			Debug.Log("FIRE DOWN - SUPER JUMP !!");
 			superJumpPressed = true;
 		}
 
     	// Pass all parameters to the character control script.
-		avatarController.Move(h, jumpPressed, superJumpPressed, firePressed);
+		avatarController.Move(moveH, moveV, jumpPressed, superJumpPressed, firePressed);
     	jumpPressed = false;
 		firePressed = false;
 		superJumpPressed = false;

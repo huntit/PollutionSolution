@@ -75,6 +75,9 @@ public class AvatarController : MonoBehaviour
 		if (other.CompareTag("Water")) 
 		{ 
 			inWater = true;
+			Debug.Log("In the Water");
+			rb.fixedAngle = false;
+			rb.gravityScale = 0.5f;
 		}
 		else 
 		if (other.CompareTag("WaterWaves") && !inWater)
@@ -87,7 +90,15 @@ public class AvatarController : MonoBehaviour
 
 	void OnTriggerExit2D(Collider2D other)
 	{
-		if (other.CompareTag("Water")) { inWater = false; }
+		if (other.CompareTag("Water")) 
+		{ 
+			inWater = false; 
+			Debug.Log ("Out of the Water");
+	
+			transform.rotation = Quaternion.Euler(Vector3.zero); // snap back to upright
+			rb.fixedAngle = true;
+			rb.gravityScale = 2;
+		}
 	}
 
 	void OnCollisionExit2D(Collision2D collision)
@@ -116,7 +127,7 @@ public class AvatarController : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		Debug.Log("On Collision Enter");
+//		Debug.Log("On Collision Enter");
 		
 		switch (collision.gameObject.tag)
 		{
@@ -129,24 +140,67 @@ public class AvatarController : MonoBehaviour
 	}
 
 
+	public void Swim(float moveH, float moveV, bool shoot)
+	{
+		// Move the player avatar left/right and up/down by setting velocity in the x and y axes
+
+		// The Speed animator parameter is set to the absolute value of the horizontal input.
+		//anim.SetFloat("Speed", Mathf.Abs(moveH));
+		
+		// Move the character in the x and y axis
+//		rb.velocity = new Vector2(moveH * maxSpeed, moveV * maxSpeed);
+
+		//transform.rotation = Quaternion.LookRotation(rb.velocity);
+		transform.Rotate(Vector3.forward * moveH);
+
+		if (moveV >= 0)
+		{
+			rb.AddForce(transform.up * moveV * 20f);
+		} 
+		else
+		{
+			rb.AddForce(transform.up * moveV * 10f);
+		}
+
+
+		Debug.Log("Swim h: " + moveH + "  v: " + moveV);
+
+		/**
+		// If changing direction, flip the player left/right
+		if ((moveH > 0 && !facingRight) || (moveH < 0 && facingRight))
+		{
+			Flip();
+		}
+		***/
+
+	}
+
+
 	// Called from PlayerInput Controller
 	// Moves the player left/right, jump, super-jump and shoot
 	// Only allows jump and super-jump if the player is grounded
 	// Flips the player sprite if they change direction
-	public void Move(float move, bool jump,  bool superJump, bool shoot)
+	public void Move(float moveH, float moveV, bool jump,  bool superJump, bool shoot)
 	{
+
+		if (inWater)
+		{
+			Swim (moveH, moveV, shoot);
+			return;
+		}
+
 
 		// Move left/right ...
 		if (grounded || airControl) 	// only control the player if grounded or airControl is turned on
         {
             // The Speed animator parameter is set to the absolute value of the horizontal input.
-            anim.SetFloat("Speed", Mathf.Abs(move));
+            anim.SetFloat("Speed", Mathf.Abs(moveH));
 
             // Move the character in the x axis
-            rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(moveH * maxSpeed, rb.velocity.y);
 
             // If changing direction, flip the player left/right
-			if ((move > 0 && !facingRight) || (move < 0 && facingRight))
+			if ((moveH > 0 && !facingRight) || (moveH < 0 && facingRight))
             {
              	Flip();
             }
