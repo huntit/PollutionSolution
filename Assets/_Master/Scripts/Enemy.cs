@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
 			Debug.Log("Collided with Avatar");
 			Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
 			//  (new Vector2(transform.localScale.x, transform.localScale.y))
-			rb.AddForce(Vector2.right * 1000f);
+			//rb.AddForce(-Vector2.right * 1000f);
 
 //			GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.1f, 0.8f, 0.8f);
 			StartCoroutine(BlinkSprite(0.2f, 3, new Color(0.8f, 0.1f, 0.8f, 0.8f)));

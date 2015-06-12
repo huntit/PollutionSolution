@@ -8,6 +8,7 @@
  */
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class AvatarController : MonoBehaviour
 {
@@ -19,9 +20,14 @@ public class AvatarController : MonoBehaviour
 	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
 	public float jumpForce = 400f;                  // Amount of force added when the player jumps.
 	public float doubleJumpForce = 200f;            // Amount of force added when the player double-jumps.
-	public bool airControl = true;                 // Whether or not a player can steer while jumping;
+	public bool airControl = true;                  // Whether or not a player can steer while jumping;
 	public LayerMask whatIsGround;                  // A mask determining what is ground to the character
 	public LayerMask whatIsWater;                   // A mask determining what is water to the character
+	public AudioClip jumpSound;						// sound to play when jumping
+	public AudioClip doubleJumpSound;				// sound to play when double-jumping
+	public AudioClip leftFootSound;					// sound to play when walking
+	public AudioClip rightFootSound;				// sound to play when walking
+	public AudioClip damageSound;					// sound to play when hit
 
 	// references to other objects
 	public PoisonIcon poisonIcon;
@@ -52,7 +58,7 @@ public class AvatarController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!inWater)	// Check if the player is grounded, and set animation appropriately
+		if (!inWater)	// If not underwater, check if the player is grounded, and set animation appropriately
 		{
 	    	grounded = false;
 	        // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -72,25 +78,31 @@ public class AvatarController : MonoBehaviour
 		}
 	}
 
-
+	// Check if the avatar has entered the water or waterwaves
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Water")) 
 		{ 
 			inWater = true;
 			Debug.Log("In the Water");
-			rb.fixedAngle = false;
-			rb.gravityScale = 0.5f;
+			rb.fixedAngle = false;		// allow the avatar to rotate underwater
+			rb.gravityScale = 0.5f;		// reduce gravity underwater
+
 		}
-		else 
-		if (other.CompareTag("WaterWaves") && !inWater)
+		else if (other.CompareTag("WaterWaves") && !inWater)
 		{
 			// play a splash sound
 			AudioSource audioSource = other.GetComponent("AudioSource") as AudioSource;
 			if (audioSource) { audioSource.Play(); }
+
+			// Instantitate the AirgunExplosion prefab particle effect
+			Instantiate (Resources.Load("AirgunExplosion"), transform.position, transform.rotation);	
+
+			rb.AddForce(new Vector2(0, -jumpForce /2f)); 		// Apply downward force to push the avatar into the water
 		}
 	}
 
+	// Check if the avatar has exited the water
 	void OnTriggerExit2D(Collider2D other)
 	{
 		if (other.CompareTag("Water")) 
@@ -101,9 +113,43 @@ public class AvatarController : MonoBehaviour
 			transform.rotation = Quaternion.Euler(Vector3.zero); // snap back to upright
 			rb.fixedAngle = true;
 			rb.gravityScale = 2;	// put gravity back to normal
-			rb.AddForce(new Vector2(0f, jumpForce / 2f)); 		// Apply vertical force to pop the avatar out of the water
+
+			rb.AddForce(new Vector2(0f, jumpForce)); 		// Apply a vertical force to pop the avatar out of the water
+			PlaySoundEffect(jumpSound, 0.5f);
 		}
+
 	}
+
+
+	// check if the avatar has collided with an enemy
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+
+		// if avatar collides with enemy, and is not invulnerable, poison avatar, and set temporarily invulnerable
+		if (!invulnerable && collision.gameObject.CompareTag("Enemy"))
+		{
+			PlaySoundEffect(damageSound, 0.8f);
+
+			// push the player backwards
+			rb.AddForce(-Vector2.right * transform.localScale.x * 2000f);
+
+			StartCoroutine(EnableInvulnerability());
+			poisonIcon.Poisoned = true;
+		}
+
+		/**
+		switch (collision.gameObject.tag)
+		{
+			case "Enemy": 
+			{
+				poisonIcon.Poisoned = true;
+			}				
+			break;
+		}
+		**/
+
+	}
+
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
@@ -128,22 +174,6 @@ public class AvatarController : MonoBehaviour
 		***/
 	}
 
-
-	void OnCollisionEnter2D(Collision2D collision)
-	{
-//		Debug.Log("On Collision Enter");
-		
-		switch (collision.gameObject.tag)
-		{
-			case "Enemy": 
-			{
-				poisonIcon.Poisoned = true;
-			}				
-			break;
-		}
-	}
-
-
 	public void Swim(float moveH, float moveV, bool shoot)
 	{
 		// Move the player avatar left/right and up/down by setting velocity in the x and y axes
@@ -155,17 +185,18 @@ public class AvatarController : MonoBehaviour
 //		rb.velocity = new Vector2(moveH * maxSpeed, moveV * maxSpeed);
 
 		//transform.rotation = Quaternion.LookRotation(rb.velocity);
-		transform.Rotate(Vector3.forward * moveH);
+		transform.Rotate(Vector3.back * moveH);
 
-		if (moveV >= 0)
+		if (moveV > 0)
 		{
 			rb.AddForce(transform.up * moveV * 20f);
 		} 
+		/*
 		else
 		{
 			rb.AddForce(transform.up * moveV * 10f);
 		}
-
+*/
 
 		Debug.Log("Swim h: " + moveH + "  v: " + moveV);
 
@@ -190,7 +221,7 @@ public class AvatarController : MonoBehaviour
 		// Swim if in the water
 		if (inWater)
 		{
-			Swim (moveH, moveV, shoot);
+			Swim (moveH, moveV, shoot);		
 			return;
 		}
 
@@ -220,10 +251,17 @@ public class AvatarController : MonoBehaviour
 
 			// Add a vertical force to the player
 			rb.AddForce(new Vector2(0f, jumpForce));
+			PlaySoundEffect(jumpSound, 0.8f);
         }
-		else
-		if (jump && CanDoubleJump()) 		// DOUBLE-JUMP ...
+		else 
+		// DOUBLE-JUMP ...
+		if (jump && CanDoubleJump()) 		
 		{
+			PlaySoundEffect(doubleJumpSound, 1f);
+
+			// Instantitate the AirgunExplosion prefab particle effect
+			Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);	
+
 			airBar.Air -= airPerDoubleJump;	// reduce air for superjump
 
 			// Add an additional vertical force to the player
@@ -264,7 +302,6 @@ public class AvatarController : MonoBehaviour
 			// if not already shooting, run the shoot animation
 			if (!anim.GetBool("Shoot")) 
 			{
-			   Debug.Log("Fire !!");
 			   anim.SetBool("Shoot", true);	// Run the shoot animation (and fires the projectile at the correct keyframe)
 			}
 			shoot = false;
@@ -309,23 +346,21 @@ public class AvatarController : MonoBehaviour
 	public void FireProjectile()
 	{
 		// Play projectile firing sound
-		if (projectile.GetComponent<Projectile>().firingSound) 
-		{ 
-			// get the firingSound property audio clip for the attached Projectile script, and play it
-			AudioSource.PlayClipAtPoint(projectile.GetComponent<Projectile>().firingSound, transform.position);
-		}
+		PlaySoundEffect(projectile.GetComponent<Projectile>().firingSound, 0.8f);
 
 		// Instantiate a projectile prefab and tag it
 		GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
 		clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
 		clone.tag = "Avatar";
-		airBar.Air -= airPerDoubleJump;	// reduce air
 
 		// Apply force to fire the projectile
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
 
 		// Instantitate the AirgunExplosion prefab particle effect
 		Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);		
+
+		// reduce air
+		airBar.Air -= airPerProjectile;	
 	}
 
 
@@ -340,19 +375,49 @@ public class AvatarController : MonoBehaviour
 
 	}
 	**/
+
+
+	// Play sound effect at the player location, with the specified volume
+	void PlaySoundEffect(AudioClip soundEffect, float volume)
+	{
+		if (soundEffect) { AudioSource.PlayClipAtPoint(soundEffect, transform.position, volume); }
+
+	}
+
+	// called from walk animation frame
+	void PlayLeftFootSound() 
+	{
+		PlaySoundEffect(leftFootSound, 0.25f);
+//		if (leftFootSound) { AudioSource.PlayClipAtPoint(leftFootSound, transform.position, 0.25f); }
+	}
+
+	// called from walk animation frame
+	void PlayRightFootSound() 
+	{
+		PlaySoundEffect(rightFootSound, 0.25f);
+	}
+
+
+
+	// Enables invulnerability for approx 3 seconds, changes alpha and flashes sprite as invulnerability ends
+	IEnumerator EnableInvulnerability()
+	{
+		invulnerable = true;
+		// flash the sprite
+		Color originalColor = new Color(1f, 1f, 1f, 1f);
+		Color newColor = new Color(1f, 0f, 0f, 1f);
+		for (int i = 0; i <= 12; i++)
+		{
+			gameObject.GetComponent<SpriteRenderer>().color = (i % 2 == 0) ? newColor : originalColor;
+			yield return new WaitForSeconds((i > 5) ? 0.15f : 0.4f);
+		}
+		gameObject.GetComponent<SpriteRenderer>().color = originalColor;
+
+		invulnerable = false;
+	}
+
+
 	/**
-	void PlayLeftFootSound () {
-		if (leftFootSound) {
-			AudioSource.PlayClipAtPoint(leftFootSound, transform.position);
-		}
-	}
-	
-	void PlayRightFootSound () {
-		if (rightFootSound) {
-			AudioSource.PlayClipAtPoint(rightFootSound, transform.position);
-		}
-	}
-	
 	void PlayJetpackSound() {
 		if (!jetpackSound || GameObject.Find("RocketSound"))
 			return;

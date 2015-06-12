@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
-  pickupSound: {fileID: 8300000, guid: 2c0a5ca2999834cdfade4656dfd147d1, type: 3}
+  pickupSound: {fileID: 8300000, guid: d33400ceb9419422d8031a7030a98c3c, type: 3}
   healthAmount: 7.30000019
 --- !u!212 &21289956
 SpriteRenderer:
