@@ -1415,6 +1415,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseUI: {fileID: 145409510}
+  WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
 --- !u!4 &994049824
 Transform:
   m_ObjectHideFlags: 0

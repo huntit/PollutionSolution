@@ -2,7 +2,7 @@
  * AvatarController.cs
  * by Peter Hunt (uses ideas from PlatformerCharacter2D script in the UnityStandardAssets._2D package)
  * 
- * Script to control player movement, including left, right, jump (if grounded), and crouch
+ * Script to control player movement, including left, right, jump (if grounded), doubl-jump, and crouch
  * Exposes public method Move(float move, bool crouch, bool jump) for calling from the PlayerInputController script
  * 
  */
@@ -13,29 +13,27 @@ public class AvatarController : MonoBehaviour
 {
 	// variables to be tweaked in the editor
 	public float airPerProjectile = 5f;				// Air used per airgun shot
-	public float airPerSuperJump = 10f;				// Air used per superjump
+	public float airPerDoubleJump = 20f;			// Air used per double-jump
 	public float healthPerHit = 10f;
 	public float projectileForce = 10f;				// Force applied to the projectile when it is shot
 	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
 	public float jumpForce = 400f;                  // Amount of force added when the player jumps.
-	public float superJumpForce = 600f;             // Amount of force added when the player jumps.
-	public bool airControl = false;                 // Whether or not a player can steer while jumping;
+	public float doubleJumpForce = 200f;            // Amount of force added when the player double-jumps.
+	public bool airControl = true;                 // Whether or not a player can steer while jumping;
 	public LayerMask whatIsGround;                  // A mask determining what is ground to the character
 	public LayerMask whatIsWater;                   // A mask determining what is water to the character
 
 	// references to other objects
 	public PoisonIcon poisonIcon;
 	public AirBar airBar;
-
 	public GameObject projectile;					// Projectile prefab that the player shoots
-
 	public bool inWater;							// whether the avatar is in the water
 
 	private bool grounded;            				// whether or not the player is grounded
 	private bool facingRight = true;  				// for determining which way the player is currently facing in the x axis
 	private bool facingUp;  						// for determining which  way the player is currently facing in the y axis when swimming
 	private bool invulnerable;						// whether the avatar is currently invulnerable.
-
+	private bool doubleJumpAllowed = true;			// whether double-jump is allowed
     private Transform groundCheck;    				// A position marking where to check if the player is grounded.
     const float GROUNDED_RADIUS = .2f; 				// Radius of the overlap circle to determine if grounded
     private Animator anim;            				// Reference to the player's animator component.
@@ -54,21 +52,26 @@ public class AvatarController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		// Check if the player is grounded
-    	grounded = false;
-        // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-        // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, GROUNDED_RADIUS, whatIsGround);
-		foreach (Collider2D collider in colliders)
+		if (!inWater)	// Check if the player is grounded, and set animation appropriately
 		{
-			if (collider.gameObject != gameObject) { grounded = true; }
+	    	grounded = false;
+	        // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+	        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, GROUNDED_RADIUS, whatIsGround);
+			foreach (Collider2D collider in colliders)
+			{
+				if (collider.gameObject != gameObject) 
+				{ 
+					grounded = true;
+					doubleJumpAllowed = true;	// on the ground, so allow double-jump again
+				}
+			}
+	        anim.SetBool("Ground", grounded);
+			
+	        // Set the vertical animation
+	        anim.SetFloat("vSpeed", rb.velocity.y);   
 		}
-        anim.SetBool("Ground", grounded);
-		
-        // Set the vertical animation
-        anim.SetFloat("vSpeed", rb.velocity.y);   
 	}
-	
+
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -97,7 +100,8 @@ public class AvatarController : MonoBehaviour
 	
 			transform.rotation = Quaternion.Euler(Vector3.zero); // snap back to upright
 			rb.fixedAngle = true;
-			rb.gravityScale = 2;
+			rb.gravityScale = 2;	// put gravity back to normal
+			rb.AddForce(new Vector2(0f, jumpForce / 2f)); 		// Apply vertical force to pop the avatar out of the water
 		}
 	}
 
@@ -183,6 +187,7 @@ public class AvatarController : MonoBehaviour
 	public void Move(float moveH, float moveV, bool jump,  bool superJump, bool shoot)
 	{
 
+		// Swim if in the water
 		if (inWater)
 		{
 			Swim (moveH, moveV, shoot);
@@ -216,8 +221,18 @@ public class AvatarController : MonoBehaviour
 			// Add a vertical force to the player
 			rb.AddForce(new Vector2(0f, jumpForce));
         }
+		else
+		if (jump && CanDoubleJump()) 		// DOUBLE-JUMP ...
+		{
+			airBar.Air -= airPerDoubleJump;	// reduce air for superjump
 
+			// Add an additional vertical force to the player
+			rb.AddForce(new Vector2(0f, jumpForce));
+			doubleJumpAllowed = false;	// already double-jumped, not allowed again until on the ground (to prevent triple-jump, etc)
 
+		}
+
+		/**
 		// SUPERJUMP ...
 //		if (grounded && superJump && CanShootAirGun() && anim.GetBool("Ground"))
 		if (grounded && superJump && CanSuperJump())
@@ -233,7 +248,7 @@ public class AvatarController : MonoBehaviour
 			shoot = false;
 
 		}
-
+**/
 		
 		/**
 		// SHOOT UP ...
@@ -281,10 +296,11 @@ public class AvatarController : MonoBehaviour
 		return (airBar.Air >= airPerProjectile);
 	}
 
-	// Check if there is enough air available to superjump, and the avatar is grounded
-	private bool CanSuperJump()
+
+	// Check if double-jump is allowed, there is enough air available to double-jump, and the avatar is not grounded
+	private bool CanDoubleJump()
 	{
-		return (grounded && airBar.Air >= airPerSuperJump && anim.GetBool("Ground"));
+		return (doubleJumpAllowed && airBar.Air >= airPerDoubleJump && !grounded && !anim.GetBool("Ground"));
 	}
 
 
@@ -303,7 +319,7 @@ public class AvatarController : MonoBehaviour
 		GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
 		clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
 		clone.tag = "Avatar";
-		airBar.Air -= airPerSuperJump;	// reduce air
+		airBar.Air -= airPerDoubleJump;	// reduce air
 
 		// Apply force to fire the projectile
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
