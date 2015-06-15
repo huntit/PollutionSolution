@@ -71,7 +71,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 417664}
-  - 60: {fileID: 6030792}
   - 61: {fileID: 6154810}
   - 114: {fileID: 11440342}
   m_Layer: 8
@@ -130,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 497812}
@@ -145,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181470}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: -14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 458302}
@@ -157,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31, y: -1, z: 0}
+  m_LocalPosition: {x: 79, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 417664}
@@ -184,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 458302}
@@ -201,23 +200,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 417664}
   m_RootOrder: 0
---- !u!60 &6030792
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 146572}
-  m_Enabled: 0
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-    m_Paths:
-    - - {x: 4.68957853, y: .490783691}
-      - {x: 3.50305033, y: -.870670557}
-      - {x: .284328461, y: -.88869977}
-      - {x: -1.15760994, y: .474259853}
 --- !u!61 &6154810
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -242,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc2bbc170e21374fbe1bfd463be4e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 4
   pointA: {fileID: 496802}
   pointB: {fileID: 451360}
 --- !u!212 &21207954
