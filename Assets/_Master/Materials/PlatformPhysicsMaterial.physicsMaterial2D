@@ -6,5 +6,5 @@ PhysicsMaterial2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PlatformPhysicsMaterial
-  friction: .200000003
-  bounciness: .300000012
+  friction: 1
+  bounciness: .100000001

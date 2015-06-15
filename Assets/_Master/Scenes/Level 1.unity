@@ -255,15 +255,18 @@ BoxCollider2D:
   m_Size: {x: 1.27999997, y: 1.26739812}
 --- !u!249 &61997787
 AreaEffector2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 61997783}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_ForceDirection: 0
+  m_UseGlobalAngle: 1
+  m_ForceAngle: 0
   m_ForceMagnitude: 6
   m_ForceVariation: 0
   m_Drag: 4
@@ -907,6 +910,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 277276804}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1364,6 +1368,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337923090}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1917,6 +1922,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 446570078}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2039,6 +2045,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 453479975}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3185,6 +3192,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 706594844}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5305,6 +5313,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1113125412}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -6246,6 +6255,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1292053762}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -6481,15 +6491,18 @@ BoxCollider2D:
   m_Size: {x: 8.49081802, y: .838327408}
 --- !u!249 &1311283404
 AreaEffector2D:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1311283400}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_ForceDirection: 0
+  m_UseGlobalAngle: 1
+  m_ForceAngle: 0
   m_ForceMagnitude: 4
   m_ForceVariation: 0
   m_Drag: 4
@@ -6571,6 +6584,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1335607717}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -7751,6 +7765,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555681585}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -8986,6 +9001,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1776123853}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -9288,6 +9304,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1802091622}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -9566,6 +9583,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1830851379}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -10035,6 +10053,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2030618677}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -10118,6 +10137,7 @@ PlatformEffector2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2057991751}
   m_Enabled: 1
+  m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
