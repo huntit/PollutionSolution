@@ -3,16 +3,18 @@ using System.Collections;
 
 public class Platform : MonoBehaviour
 {
-	// Transform startPosition, endPosition;
-	public float moveTime;
-	private bool travelBackwards = false;
-	public Rigidbody2D rb;
+	public float speed = 4f;
+	private float startTime;
+	private float journeyLength;
+	private bool travelForwards = false;
+	public Transform pointA, pointB;
 
 	// Use this for initialization
 	void Start ()
 	{
-		// startPosition = this.GetComponent<GameObject>().Transform; // Investigate proper phrasing
-		rb.AddForce (-100f *Vector2.right);
+		transform.position = pointA.position;
+		startTime = Time.time;
+		journeyLength = Vector3.Distance(pointA.position, pointB.position);
 	}
 	
 	// Update is called once per frame
@@ -24,5 +26,13 @@ public class Platform : MonoBehaviour
 		 * If it isn't built in to RigidBody2D, add a force to colliders immediately
 		 * above the Platform to keep them on top of it as it moves
 		 */
+		float distCovered = (Time.time - startTime) * speed;
+		float fracJourney = (travelForwards) ? distCovered / journeyLength : (journeyLength - distCovered) / journeyLength;
+		transform.position = Vector3.Lerp (pointA.position, pointB.position, fracJourney);
+		if (fracJourney <= 0 || fracJourney >= 1)
+		{
+			travelForwards = !travelForwards;
+			startTime = Time.time;
+		}
 	}
 }
