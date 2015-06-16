@@ -28,6 +28,8 @@ public class AvatarController : MonoBehaviour
 	public AudioClip leftFootSound;					// sound to play when walking
 	public AudioClip rightFootSound;				// sound to play when walking
 	public AudioClip damageSound;					// sound to play when hit
+	public AudioClip swimSound;						// sound to play when swimming
+
 
 	// references to other objects
 	public PoisonIcon poisonIcon;
@@ -71,11 +73,14 @@ public class AvatarController : MonoBehaviour
 					doubleJumpAllowed = true;	// on the ground, so allow double-jump again
 				}
 			}
+
+			// Set animation parameters
+			anim.SetBool("Swim", false);
 	        anim.SetBool("Ground", grounded);
-			
-	        // Set the vertical animation
 	        anim.SetFloat("vSpeed", rb.velocity.y);   
 		}
+
+		anim.SetBool("inWater", inWater);	// activate / deactivate the idle swim animation
 	}
 
 	// Check if the avatar has entered the water or waterwaves
@@ -84,7 +89,6 @@ public class AvatarController : MonoBehaviour
 		if (other.CompareTag("Water")) 
 		{ 
 			inWater = true;
-			Debug.Log("In the Water");
 			rb.fixedAngle = false;		// allow the avatar to rotate underwater
 			rb.gravityScale = 0.5f;		// reduce gravity underwater
 
@@ -108,8 +112,7 @@ public class AvatarController : MonoBehaviour
 		if (other.CompareTag("Water")) 
 		{ 
 			inWater = false; 
-			Debug.Log ("Out of the Water");
-	
+
 			transform.rotation = Quaternion.Euler(Vector3.zero); // snap back to upright
 			rb.fixedAngle = true;
 			rb.gravityScale = 2;	// put gravity back to normal
@@ -189,8 +192,15 @@ public class AvatarController : MonoBehaviour
 
 		if (moveV > 0)
 		{
+			// Instantiate the BubbleUnderwater prefab particle effect
+			Instantiate (Resources.Load("BubblesUnderwater"), groundCheck.position, transform.rotation);	
+
 			rb.AddForce(transform.up * moveV * 20f);
+
 		} 
+
+		anim.SetBool("Swim", (moveV > 0));	// activate / de-activate the swim animation based on whether the player is swimming forward
+
 		/*
 		else
 		{
@@ -252,6 +262,10 @@ public class AvatarController : MonoBehaviour
 			// Add a vertical force to the player
 			rb.AddForce(new Vector2(0f, jumpForce));
 			PlaySoundEffect(jumpSound, 0.8f);
+
+			// Instantiate the BubbleUnderwater prefab particle effect
+			Instantiate (Resources.Load("FireJump"), groundCheck.position, transform.rotation);
+
         }
 		else 
 		// DOUBLE-JUMP ...
@@ -397,6 +411,11 @@ public class AvatarController : MonoBehaviour
 		PlaySoundEffect(rightFootSound, 0.25f);
 	}
 
+	// called from swim animation frame
+	void PlaySwimSound() 
+	{
+		PlaySoundEffect(swimSound, 1.0f);
+	}
 
 
 	// Enables invulnerability for approx 3 seconds, changes alpha and flashes sprite as invulnerability ends

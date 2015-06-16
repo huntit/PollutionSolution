@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   m_Layer: 0
-  m_Name: SteamMobile
+  m_Name: BubblesUnderwater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,18 +62,18 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  lengthInSec: 5
+  lengthInSec: 1
   startDelay: 0
   speed: 1
   randomSeed: 0
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   moveWithTransform: 0
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 6
+      scalar: .5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -88,7 +88,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .5
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -96,7 +96,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startSpeed:
-      scalar: 3
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -111,7 +111,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .666666687
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -213,7 +213,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 2
     startSize:
-      scalar: 6
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -228,7 +228,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .666666687
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -260,17 +260,18 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: -.200000003
     inheritVelocity: 0
-    maxNumParticles: 500
+    maxNumParticles: 10
   ShapeModule:
     serializedVersion: 2
     enabled: 1
-    type: 4
+    type: 2
     radius: .00999999978
     angle: 0
     length: 5
     boxX: 1
     boxY: 1
     boxZ: 1
+    arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
     randomDirection: 0
@@ -278,7 +279,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 4
+      scalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -305,7 +306,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 30
+    cnt0: 10
     cnt1: 30
     cnt2: 30
     cnt3: 30
@@ -313,7 +314,7 @@ ParticleSystem:
     time1: 0
     time2: 0
     time3: 0
-    m_BurstCount: 0
+    m_BurstCount: 1
   SizeModule:
     enabled: 1
     curve:
@@ -1072,15 +1073,19 @@ ParticleSystemRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: ed1b89d39279f564ea077ad8e46f3595, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_RenderMode: 0
@@ -1103,10 +1108,6 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-    m_DeprecatedTransformRoot: {fileID: 0}
-    m_DeprecatedTransformMap: {}
-    m_DeprecatedTransformComplete: 1
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

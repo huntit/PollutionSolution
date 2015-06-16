@@ -6758,6 +6758,7 @@ MonoBehaviour:
   leftFootSound: {fileID: 8300000, guid: 06f1ce0425c4a4739a4df195c111256e, type: 3}
   rightFootSound: {fileID: 8300000, guid: eaad5787062c14525bc1e0dcf6d32f4e, type: 3}
   damageSound: {fileID: 8300000, guid: 60fdcf12b21ed40d98d097083918e5d4, type: 3}
+  swimSound: {fileID: 8300000, guid: ee614ae2f29c54a00a68a1c5566e09d2, type: 3}
   poisonIcon: {fileID: 1596339676}
   airBar: {fileID: 1917762156}
   projectile: {fileID: 196712, guid: 56779d502551841a891cb3fc596b52e1, type: 2}
