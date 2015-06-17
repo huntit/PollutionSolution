@@ -89,7 +89,8 @@ public class GameManager : MonoBehaviour
 		WinScreen.SetActive(true);
 		Time.timeScale = 0;
 		StartCoroutine("WaitForLevel");
-		LoadNextLevel();
+		//LoadNextLevel();
+		Application.LoadLevel(0);
 
 	}
 												

@@ -14,7 +14,7 @@ public class HealthPack : MonoBehaviour
 		{
 			healthBar.Health += healthAmount;
 			// Play pickup sound
-			if (pickupSound) 
+			if (pickupSound)
 			{ 
 				AudioSource.PlayClipAtPoint(pickupSound, transform.position);
 			}

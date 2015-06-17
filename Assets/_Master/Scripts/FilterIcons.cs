@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class FilterIcons : MonoBehaviour 
 {
 	public float filterPieceCount = 0f;
+	public static int filterCount = 0;
 	//		filterPartCollected(0)
 	//		filterPartCollected(1)
 	//		filterPartCollected(2)
@@ -25,6 +26,7 @@ public class FilterIcons : MonoBehaviour
 				// set to full alpha
 				Color currentColor = gameObject.GetComponent<Image>().color;
 				gameObject.GetComponent<Image>().color = new Color(currentColor.r, currentColor.g, currentColor.b, 1f);
+				filterCount++;
 			}
 		}
 	}
