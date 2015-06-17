@@ -12,30 +12,31 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerInput : MonoBehaviour
 {
-	private AvatarController avatarController;	// reference to the PlayerController to pass Move() instructions to
+	private AvatarController avatarController;	// reference to the AvatarController to pass Move() instructions to
     private bool jumpPressed;
 	private bool firePressed;
-	private bool superJumpPressed;
 
+	// Setup references used in the class
 	private void Awake()
     {
     	avatarController = GetComponent<AvatarController>();
     }
 
+	// Read the jump and fire input buttons in Update so button presses aren't missed.
 	private void Update()
     {
-		// Read the jump and fire input buttons in Update so button presses aren't missed.
 		if (!jumpPressed) { jumpPressed = CrossPlatformInputManager.GetButtonDown("Jump"); }
 		if (!firePressed) { firePressed = CrossPlatformInputManager.GetButtonDown("Fire1"); }
 	}
 
+	// Read the horizontal and vertical axis inputs
+	// Call the Move() method on the avatarController, passing the axis inputs, jumpPressed and firePressed statuses
     private void FixedUpdate()
     {
-    	// Read the inputs.
     	float moveH = CrossPlatformInputManager.GetAxis("Horizontal");
 		float moveV = CrossPlatformInputManager.GetAxis("Vertical");
-		//bool crouch = Input.GetKey(KeyCode.LeftShift);
 
+		/**
 		if (firePressed && CrossPlatformInputManager.GetButton("Jump"))
 		{
 			Debug.Log("FIRE UP !!");
@@ -45,12 +46,12 @@ public class PlayerInput : MonoBehaviour
 			Debug.Log("FIRE DOWN - SUPER JUMP !!");
 			superJumpPressed = true;
 		}
+		**/
 
-    	// Pass all parameters to the character control script.
-		avatarController.Move(moveH, moveV, jumpPressed, superJumpPressed, firePressed);
+    	// Pass all parameters to the avatar control script.
+		avatarController.Move(moveH, moveV, jumpPressed, firePressed);
     	jumpPressed = false;
 		firePressed = false;
-		superJumpPressed = false;
     }
 
 }

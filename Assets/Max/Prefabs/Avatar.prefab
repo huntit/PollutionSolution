@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00899999961, y: -.321999997, z: 0}
+  m_LocalPosition: {x: .0430000015, y: -.321999997, z: 0}
   m_LocalScale: {x: .564880013, y: .564880013, z: 1}
   m_Children: []
   m_Father: {fileID: 443808}
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 127684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -264.459991, y: 9.44999981, z: 0}
+  m_LocalPosition: {x: 6, y: -22.7000008, z: 0}
   m_LocalScale: {x: 3.79999995, y: 3.79999995, z: 3.79999995}
   m_Children:
   - {fileID: 417814}
@@ -236,23 +236,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   airPerProjectile: 5
   airPerDoubleJump: 20
+  airPerUnderwaterDash: 5
   healthPerHit: 10
   projectileForce: 10
   maxSpeed: 15
   jumpForce: 600
   doubleJumpForce: 300
+  swimForce: 20
+  underwaterDashForce: 500
   airControl: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  whatIsWater:
-    serializedVersion: 2
-    m_Bits: 0
   jumpSound: {fileID: 8300000, guid: 1c93e01ab50854af9ac2aad38d9cc87c, type: 3}
   doubleJumpSound: {fileID: 8300000, guid: 68b85d5dbf0a84ffb82498fff71f7bc4, type: 3}
   leftFootSound: {fileID: 8300000, guid: 06f1ce0425c4a4739a4df195c111256e, type: 3}
   rightFootSound: {fileID: 8300000, guid: eaad5787062c14525bc1e0dcf6d32f4e, type: 3}
   damageSound: {fileID: 8300000, guid: 60fdcf12b21ed40d98d097083918e5d4, type: 3}
+  swimSound: {fileID: 8300000, guid: ee614ae2f29c54a00a68a1c5566e09d2, type: 3}
   poisonIcon: {fileID: 0}
   airBar: {fileID: 0}
   projectile: {fileID: 196712, guid: 56779d502551841a891cb3fc596b52e1, type: 2}
