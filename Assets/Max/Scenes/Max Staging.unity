@@ -117,8 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc2bbc170e21374fbe1bfd463be4e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 1
-  rb: {fileID: 36670348}
+  speed: 4
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
 --- !u!212 &36670345
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -486,8 +487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87b6081aa5114d4abe3cd32f34b940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterID: 2
-  filterIcons: {fileID: 696101621}
+  filterIcon: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &530908838
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -568,8 +569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87b6081aa5114d4abe3cd32f34b940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterID: 0
-  filterIcons: {fileID: 696101621}
+  filterIcon: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &598173176
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -648,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46d470fb565fa24f97c53fd4559406d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  filterPieceCount: 0
   filterPartsCollected: 
 --- !u!4 &696101622
 Transform:
@@ -856,6 +858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airBar: {fileID: 0}
+  pickupSound: {fileID: 0}
+  airAmount: 15
 --- !u!212 &1170777032
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -923,8 +927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87b6081aa5114d4abe3cd32f34b940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterID: 3
-  filterIcons: {fileID: 696101621}
+  filterIcon: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &1206083083
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1005,8 +1009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87b6081aa5114d4abe3cd32f34b940f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterID: 1
-  filterIcons: {fileID: 696101621}
+  filterIcon: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &1322442494
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1179,7 +1183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a723a2cbcb1dc4aa66ac5aee239929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filterIcons: {fileID: 0}
   gameManager: {fileID: 1611024025}
 --- !u!1 &1611024024
 GameObject:
@@ -1208,6 +1211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c950734296262f40834ce63b141a485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PauseUI: {fileID: 0}
+  WinScreen: {fileID: 0}
+  LoseScreen: {fileID: 0}
 --- !u!4 &1611024026
 Transform:
   m_ObjectHideFlags: 0
