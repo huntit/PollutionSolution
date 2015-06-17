@@ -29,13 +29,6 @@ public class AirBar : MonoBehaviour
 		{
 			// keep the air to be between 0 and 100
 			air = Mathf.Clamp(value, 0f, 100f);
-
-			if (value <= 0f)
-			{
-				Debug.Log("OUT OF AIR!");
-			} 
-
-
 			airSlider.value = Air;
 		}
 	}
@@ -51,7 +44,6 @@ public class AirBar : MonoBehaviour
 		// consume air while under water
 		if (avatar.inWater)
 		{
-			Debug.Log ("I'm in the water!");
 			Air -= drownRate * Time.fixedDeltaTime;
 
 			// If you run out of air, and are in the water, lose health
