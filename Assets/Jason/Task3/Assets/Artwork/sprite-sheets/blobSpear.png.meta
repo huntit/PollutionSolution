@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: 9ccabd9970a63124c91eb8782cadbac3
+timeCreated: 1434376401
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: blobSpear_0
+    21300002: blobSpear_1
+    21300004: blobSpear_2
+    21300006: blobSpear_3
+    21300008: blobSpear_4
+    21300010: blobSpear_7
+    21300012: blobSpear_5
+    21300014: blobSpear_6
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: blobSpear_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 117
+        width: 50
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_1
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 117
+        width: 54
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_2
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 117
+        width: 61
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_3
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 117
+        width: 139
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_4
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 117
+        width: 188
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_5
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 117
+        width: 259
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_6
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 0
+        width: 216
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blobSpear_7
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 0
+        width: 326
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
