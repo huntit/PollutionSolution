@@ -4,7 +4,7 @@ using System.Collections;
 public class Door : MonoBehaviour
 {
 	public Collider2D doorCollider2D;
-	public GameObject doorFront;
+	//public GameObject doorFront;
 
 	public void OpenDoor()
 	{
