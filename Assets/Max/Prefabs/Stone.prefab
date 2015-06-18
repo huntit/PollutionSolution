@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 450404}
   - 212: {fileID: 21250698}
   - 60: {fileID: 6000878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

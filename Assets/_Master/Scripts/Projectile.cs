@@ -12,6 +12,13 @@ public class Projectile : MonoBehaviour
 {
 	public AudioClip firingSound;	// sound to play when projectile is fired
 	public AudioClip impactSound;	// sound to play when projectile hits
+	public float projectileLifespan = 0.3f;		// give the projectile a lifespan of 0.3 seconds
+
+	private void Start()
+	{
+		// automatically destroy the projectile after a short time span
+		Destroy(gameObject, projectileLifespan);
+	}
 
 	void OnCollisionEnter2D(Collision2D target) 
 	{
@@ -22,6 +29,5 @@ public class Projectile : MonoBehaviour
 			Destroy(gameObject);
 		}
 	}
-
 
 }

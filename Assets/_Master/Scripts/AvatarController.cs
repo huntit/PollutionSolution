@@ -2,9 +2,10 @@
  * AvatarController.cs
  * by Peter Hunt 
  * 
- * (Uses concepts from the PlatformerCharacter2D script in the UnityStandardAssets._2D package)
+ * (Some concepts from the PlatformerCharacter2D script in the UnityStandardAssets._2D package)
  * 
- * This script controls avatar movement, including left, right, jump (if grounded), double-jump (if air-borne), and swim (if in the water)
+ * This script controls avatar movement and abilities including left, right, jump (if grounded), double-jump (if air-borne) and shoot
+ * If underswater, it includes swim and dash
  * Exposes public method Move() for calling from the PlayerInputController script
  * 
  */
@@ -23,8 +24,8 @@ public class AvatarController : MonoBehaviour
 	public float maxSpeed = 10f;                    // The fastest the player can travel in the x axis.
 	public float jumpForce = 400f;                  // Amount of force added when the player jumps.
 	public float doubleJumpForce = 200f;            // Amount of force added when the player double-jumps.
-	public float swimForce = 20f;                  // Amount of force added when the player swims.
-	public float underwaterDashForce = 500f;        // Amount of force added when the player does an underwater dash
+	public float swimForce = 20f;                   // Amount of force added when the player swims.
+	public float underwaterDashForce = 550f;        // Amount of force added when the player does an underwater dash
 	public bool airControl = true;                  // Whether or not a player can steer while jumping;
 	public LayerMask whatIsGround;                  // A mask determining what is ground to the character
 
@@ -35,6 +36,9 @@ public class AvatarController : MonoBehaviour
 	public AudioClip rightFootSound;				// sound to play when walking
 	public AudioClip damageSound;					// sound to play when hit
 	public AudioClip swimSound;						// sound to play when swimming
+	public AudioClip dieSound;						// sound to play when dying
+	public AudioClip buzzerSound;					// sound to play when can't shoot, double-jump or dash
+
 
 	public PoisonIcon poisonIcon;					// reference to the UI poison icon
 	public AirBar airBar;							// reference to the UI air bar
@@ -97,7 +101,6 @@ public class AvatarController : MonoBehaviour
 			inWater = true;
 			rb.fixedAngle = false;		// allow the avatar to rotate underwater
 			rb.gravityScale = 0.5f;		// reduce gravity underwater
-
 		}
 		else if (other.CompareTag("WaterWaves") && !inWater)
 		{
@@ -139,7 +142,7 @@ public class AvatarController : MonoBehaviour
 			PlaySoundEffect(damageSound, 0.8f);
 
 			// push the player backwards
-			rb.AddForce(-Vector2.right * transform.localScale.x * 1500f);
+			rb.AddForce(-Vector2.right * transform.localScale.x * 1000f);
 
 			StartCoroutine(EnableInvulnerability());
 			poisonIcon.Poisoned = true;
@@ -190,7 +193,7 @@ public class AvatarController : MonoBehaviour
 			// "Daring Fireball" special effect
 			// Instantiate the FireJump prefab particle effect
 			GameObject daringFireball = (Instantiate (Resources.Load("FireJump"), groundCheck.position, transform.rotation)) as GameObject;
-			daringFireball.tag = "Avatar";
+			daringFireball.tag = "Avatar Fireball";
 
         }
 		// Double-jump
@@ -227,7 +230,7 @@ public class AvatarController : MonoBehaviour
 
 
 	// When underwater, rotate the avatar using the horizontal axis, move the avatar forward using the vertical axis
-	public void Swim(float moveH, float moveV, bool shoot)
+	private void Swim(float moveH, float moveV, bool shoot)
 	{
 		transform.Rotate(Vector3.back * moveH);	// rotate the avatar
 		
@@ -272,21 +275,48 @@ public class AvatarController : MonoBehaviour
 
 
 	// Check if there is enough air available to shoot the air gun
+	// If not, play buzzerSound
 	private bool CanShootAirGun()
 	{
-		return (airBar.Air >= airPerProjectile);
+		if (airBar.Air >= airPerProjectile)
+		{
+			return true;
+		}
+		else
+		{
+			PlaySoundEffect(buzzerSound, 0.8f);
+			return false;
+		}
 	}
 
 	// Check if double-jump is allowed, there is enough air available to double-jump, and the avatar is not grounded
+	// If not, play buzzerSound
 	private bool CanDoubleJump()
 	{
-		return (doubleJumpAllowed && airBar.Air >= airPerDoubleJump && !grounded && !anim.GetBool("Ground"));
+		if (doubleJumpAllowed && airBar.Air >= airPerDoubleJump && !grounded && !anim.GetBool("Ground"))
+		{
+			return true;
+		}
+		else
+		{
+			PlaySoundEffect(buzzerSound, 0.8f);
+			return false;
+		}
 	}
 
-	// Check if in the water, there is enough air available to do a dash
+	// Check if in the water, and there is enough air available to do a dash
+	// If not, play buzzerSound
 	private bool CanUnderwaterDash()
 	{
-		return (inWater && airBar.Air >= airPerUnderwaterDash);
+		if (inWater && airBar.Air >= airPerUnderwaterDash)
+		{
+			return true;
+		}
+		else
+		{
+			PlaySoundEffect(buzzerSound, 0.8f);
+			return false;
+		}
 	}
 
 
@@ -300,7 +330,7 @@ public class AvatarController : MonoBehaviour
 		// Instantiate a projectile prefab and tag it
 		GameObject clone = Instantiate(projectile, shootingPosition.position, transform.rotation) as GameObject;
 		clone.transform.localScale = transform.localScale; // flip the projectile if the character is facing left
-		clone.tag = "Avatar";
+		clone.tag = "Avatar Projectile";
 
 		// Apply force to fire the projectile
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
@@ -314,32 +344,38 @@ public class AvatarController : MonoBehaviour
 
 
 	// Play sound effect at the player location, with the specified volume
-	void PlaySoundEffect(AudioClip soundEffect, float volume)
+	private void PlaySoundEffect(AudioClip soundEffect, float volume)
 	{
 		if (soundEffect) { AudioSource.PlayClipAtPoint(soundEffect, transform.position, volume); }
 	}
 
 	// Called from walk animation frame
-	void PlayLeftFootSound() 
+	public void PlayLeftFootSound() 
 	{
 		PlaySoundEffect(leftFootSound, 0.25f);
 	}
 
 	// Called from walk animation frame
-	void PlayRightFootSound() 
+	public void PlayRightFootSound() 
 	{
 		PlaySoundEffect(rightFootSound, 0.25f);
 	}
 
 	// Called from swim animation frame
-	void PlaySwimSound() 
+	public void PlaySwimSound() 
 	{
+
 		PlaySoundEffect(swimSound, 1.0f);
 	}
 
+	// Called from GameManager when avatar dies
+	public void Die()
+	{
+		PlaySoundEffect(dieSound, 1.0f);
+	}
 
 	// Enables invulnerability for approx 3 seconds, changes alpha and flashes sprite as invulnerability ends
-	IEnumerator EnableInvulnerability()
+	private IEnumerator EnableInvulnerability()
 	{
 		invulnerable = true;
 		// flash the sprite
@@ -354,5 +390,6 @@ public class AvatarController : MonoBehaviour
 
 		invulnerable = false;
 	}
+
 
 }

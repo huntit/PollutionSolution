@@ -1,6 +1,6 @@
 /*
  * CameraFollow2D.cs
- * modified by Peter Hunt (from Camera2DFollow script in the UnityStandardAssets._2D package)
+ * by Peter Hunt (modified from Camera2DFollow script in the UnityStandardAssets._2D package)
  * 
  * Script to have the camera follow the main player, with damping and look ahead control
  */
@@ -8,8 +8,6 @@
 using System;
 using UnityEngine;
 
-//namespace UnityStandardAssets._2D
-//{
 public class CameraFollow2D : MonoBehaviour
 {
 	public Transform target;

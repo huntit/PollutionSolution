@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
 	public GameObject PauseUI;
 	public GameObject WinScreen;
 	public GameObject LoseScreen;
+	public AvatarController avatar;
 
 	private static int currentLevel = 0;
 	public static bool paused = false;
+	private bool gameOver = false;
 
 	void Start() 
 	{
@@ -54,9 +56,14 @@ public class GameManager : MonoBehaviour
 								
 	public void LoseGame()
 	{
-		LoseScreen.SetActive(true);
+		if (!gameOver)
+		{
+			gameOver = true;
+			avatar.Die();	// play avatar dying sound
+			LoseScreen.SetActive(true);
 //		Time.timeScale = 0;
-		StartCoroutine ("WaitForLevel", 1);
+			StartCoroutine ("WaitForLevel", 1);
+		}
 	}
 
 	public void WinGame()
