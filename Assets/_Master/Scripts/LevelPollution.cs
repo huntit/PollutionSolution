@@ -1,22 +1,31 @@
-﻿using UnityEngine;
+﻿/* 
+ * LevelPollution.cs
+ * By Max Finn
+ * 
+ * 
+ */ 
+
+using UnityEngine;
 using System.Collections;
 
-public class LevelPollution : MonoBehaviour {
+public class LevelPollution : MonoBehaviour
+{
 	//GameObject gameObject;
 
 	// Use this for initialization
-	void Start () {
-		//StartCoroutine (FadeScreen ());
+	private void Start()
+	{
+		//StartCoroutine (FadeScreen ());InvokeRepeating?
 		Color color = GetComponent<Renderer>().material.color;
 		color.a = 0.9f;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 	
 	}
 
-	IEnumerator FadeScreen()
+	private IEnumerator FadeScreen()
 	{
 		Color color = GetComponent<Renderer>().material.color;
 		color.a = 0.5f;

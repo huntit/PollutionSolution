@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/* 
+ * HealthPack.cs
+ * By Max Finn
+ * 
+ * 
+ */ 
+
+using UnityEngine;
 using System.Collections;
 
 public class HealthPack : MonoBehaviour

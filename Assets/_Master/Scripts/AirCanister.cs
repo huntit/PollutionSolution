@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/* 
+ * AirCanister.cs
+ * By Max Finn
+ * 
+ * 
+ */ 
+
+using UnityEngine;
 using System.Collections;
 
 public class AirCanister : MonoBehaviour

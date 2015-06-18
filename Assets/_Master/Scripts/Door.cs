@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿/* 
+ * Door.cs
+ * By Max Finn
+ * 
+ * 
+ */ 
+
+using UnityEngine;
 using System.Collections;
 
 public class Door : MonoBehaviour
 {
 	public Collider2D doorCollider2D;
-	//public GameObject doorFront;
 
 	public void OpenDoor()
 	{
