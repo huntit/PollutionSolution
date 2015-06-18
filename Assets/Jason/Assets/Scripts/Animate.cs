@@ -18,7 +18,7 @@ public class Animate : MonoBehaviour {
 	}
 	
 	void OnTriggerStay2D(Collider2D target){
-		if (target.gameObject.tag == "Player") 
+		if (target.gameObject.tag == "Avatar") 
 		{
 			if(readyToAttack)
 			{

@@ -16,7 +16,7 @@ public class LookForward : MonoBehaviour {
 	// Update is called once per frame
 	void Update() 
 	{
-		collision = Physics2D.Linecast (sightStart.position, sightEnd.position, 1 << LayerMask.NameToLayer ("Solid"));
+		collision = Physics2D.Linecast (sightStart.position, sightEnd.position, 1 << LayerMask.NameToLayer("Ground"));
 		Debug.DrawLine (sightStart.position, sightEnd.position, Color.green);
 		
 		if(collision == needsCollision)

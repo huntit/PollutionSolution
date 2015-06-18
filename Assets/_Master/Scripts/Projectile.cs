@@ -21,13 +21,21 @@ public class Projectile : MonoBehaviour
 	}
 
 	void OnCollisionEnter2D(Collision2D target) 
-	{
-		// Destroy when it collides with anything except the player
+	{	
+		// Destroy projectile when it collides with anything except the player
 		if (target.gameObject.tag != "Avatar")
 		{
-			if (impactSound) { AudioSource.PlayClipAtPoint(impactSound, transform.position); }
 			Destroy(gameObject);
+			if (impactSound) { AudioSource.PlayClipAtPoint(impactSound, transform.position); }
 		}
+
+		// Collided with enemy - reduce the pollution
+		if (target.gameObject.tag == "Enemy")
+		{
+			ParticleSystem particles = target.gameObject.GetComponentInChildren<ParticleSystem>();
+			if (particles) { particles.emissionRate = particles.emissionRate / 2f; }
+		}
+
 	}
 
 }

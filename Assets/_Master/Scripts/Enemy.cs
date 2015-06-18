@@ -26,14 +26,15 @@ public class Enemy : MonoBehaviour
 			//rb.AddForce(-Vector2.right * 1000f);
 
 //			GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.1f, 0.8f, 0.8f);
-			StartCoroutine(BlinkSprite(0.2f, 3, new Color(0.8f, 0.1f, 0.8f, 0.8f)));
+			StartCoroutine(BlinkSprite(0.2f, 3, new Color(0.9f, 0.1f, 0.8f, 0.8f)));
 		}
 	}
 
 
 	IEnumerator BlinkSprite(float delayBetweenBlinks, int numberOfBlinks, Color blinkColor)
 	{
-		Color originalColor = GetComponent<SpriteRenderer>().color;
+//		Color originalColor = GetComponent<SpriteRenderer>().color;
+		Color originalColor = Color.white;
 
 		bool canTakeDamage = false;
 		float elapsedTime = 0f;

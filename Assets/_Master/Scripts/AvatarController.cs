@@ -25,6 +25,8 @@ public class AvatarController : MonoBehaviour
 	public float jumpForce = 400f;                  // Amount of force added when the player jumps.
 	public float doubleJumpForce = 200f;            // Amount of force added when the player double-jumps.
 	public float swimForce = 20f;                   // Amount of force added when the player swims.
+	public float swimTurnSpeed = 2f;                // Speed the avatar can turn underwater
+
 	public float underwaterDashForce = 550f;        // Amount of force added when the player does an underwater dash
 	public bool airControl = true;                  // Whether or not a player can steer while jumping;
 	public LayerMask whatIsGround;                  // A mask determining what is ground to the character
@@ -142,7 +144,7 @@ public class AvatarController : MonoBehaviour
 			PlaySoundEffect(damageSound, 0.8f);
 
 			// push the player backwards
-			rb.AddForce(-Vector2.right * transform.localScale.x * 1000f);
+			rb.AddForce(-Vector2.right * transform.localScale.x * 1000f * rb.gravityScale);
 
 			StartCoroutine(EnableInvulnerability());
 			poisonIcon.Poisoned = true;
@@ -194,7 +196,7 @@ public class AvatarController : MonoBehaviour
 			// Instantiate the FireJump prefab particle effect
 			GameObject daringFireball = (Instantiate (Resources.Load("FireJump"), groundCheck.position, transform.rotation)) as GameObject;
 			daringFireball.tag = "Avatar Fireball";
-
+			daringFireball.layer = LayerMask.NameToLayer("Ground");
         }
 		// Double-jump
 		else if (jump && CanDoubleJump()) 		
@@ -232,7 +234,7 @@ public class AvatarController : MonoBehaviour
 	// When underwater, rotate the avatar using the horizontal axis, move the avatar forward using the vertical axis
 	private void Swim(float moveH, float moveV, bool shoot)
 	{
-		transform.Rotate(Vector3.back * moveH);	// rotate the avatar
+		transform.Rotate(Vector3.back * moveH * swimTurnSpeed);	// rotate the avatar
 		
 		// move the avatar forward
 		if (moveV > 0)
