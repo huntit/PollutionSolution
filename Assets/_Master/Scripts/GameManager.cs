@@ -55,19 +55,16 @@ public class GameManager : MonoBehaviour
 	public void LoseGame()
 	{
 		LoseScreen.SetActive(true);
-		Time.timeScale = 0;
-		StartCoroutine("WaitForLevel");
-		Application.LoadLevel(1);
-		Time.timeScale = 1;
+//		Time.timeScale = 0;
+		StartCoroutine ("WaitForLevel", 1);
 	}
 
 	public void WinGame()
 	{
 		WinScreen.SetActive(true);
-		Time.timeScale = 0;
-		StartCoroutine("WaitForLevel");
-		Application.LoadLevel(0);
-		Time.timeScale = 1;
+//		Time.timeScale = 0;
+		StartCoroutine("WaitForLevel", 0);
+
 	}
 												
 	public void LoadNextLevel()
@@ -82,8 +79,12 @@ public class GameManager : MonoBehaviour
 		Application.Quit (); //Stop when running for real
 	}
 
-	IEnumerator WaitForLevel() 
+	IEnumerator WaitForLevel(int level) 
 	{
-		yield return new WaitForSeconds(100);
+		yield return new WaitForSeconds(4);
+		Debug.Log (level);
+		Application.LoadLevel(level);
+		Time.timeScale = 1;
+
 	}
 }

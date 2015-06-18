@@ -1,10 +1,18 @@
+/* 
+ * FilterIcons Script by Laura Yarnold
+ * 
+ * 
+ * 
+ */ 
+
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
 public class FilterIcons : MonoBehaviour 
 {
-	public float filterPieceCount = 0f;
+	//
+//	public float filterPieceCount = 0f;
 	public static int filterCount = 0;
 	public bool[] filterPartsCollected;
 
