@@ -176,6 +176,7 @@ MonoBehaviour:
   avatar: {fileID: 0}
   healthLossPerSec: 10
   drownRate: 5
+  breatheRate: 2
 --- !u!114 &11494020
 MonoBehaviour:
   m_ObjectHideFlags: 1
