@@ -1,7 +1,7 @@
 ﻿/* 
  * PoisonIcon Script by Laura Yarnold
  * 
- * 
+ * Controls the poison icon that appears in the GUI. Also tells the health bar about the poison state.
  */ 
 
 using UnityEngine;
@@ -10,17 +10,27 @@ using UnityEngine.UI;
 
 public class PoisonIcon : MonoBehaviour 
 {
+	// Create a public range between 1 - 10 of how long you are poisoned
 	[Range(0, 10)] public float poisonTime = 2f;
+
+	// Create a public range between 1 - 20 of health loss per second
 	[Range(1, 20)] public float healthLossPerSec = 10f;
+
+	//Create a public healthbar that appears on GUI screen
 	public HealthBar healthBar;
 
+	//Create a boolean to tell the get/set if poisoned or not
 	private bool poisoned;
+
+	//Sets up a private float time for when poison should stop working
 	private float poisonFinishTime;
 
 	public bool Poisoned
 	{
+		//Returns whether poison is true or false
 		get { return poisoned; }
-		
+
+		//If poisoned is enabled, blink the icon on and off for 4 seconds
 		set
 		{
 			poisoned = value;
@@ -31,16 +41,17 @@ public class PoisonIcon : MonoBehaviour
 			{
 				poisonFinishTime = Time.time + poisonTime;
 				StartCoroutine("BlinkIcon");
-//				InvokeRepeating("BlinkIcon", 1f, 0.5f);
 			} 
+
 			else
 			{
-//				CancelInvoke("BlinkIcon");
+				//Else set the poison icon image to be invisible 
 				gameObject.GetComponent<Image>().enabled = false;
 			}
 		}
 	}
 
+	//Sets poisoned to be false at the start of the game
 	private void Start()
 	{
 		Poisoned = false;
@@ -48,12 +59,12 @@ public class PoisonIcon : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		// If you are poisoned, lose health, and blink poisoned icon
+		// If you are poisoned, lose health over time
 		if (poisoned)
 		{
 			healthBar.Health -= healthLossPerSec * Time.fixedDeltaTime;
 
-			// check if poison time is finished, set poisoned to false
+			// Check if poison time is finished, then set poisoned to false
 			if (Time.time >= poisonFinishTime)
 			{
 				Poisoned = false;
@@ -74,16 +85,7 @@ public class PoisonIcon : MonoBehaviour
 
 		}
 
-		// no longer poisoned, so icon off
+		// When no longer poisoned, turn poison icon off
 		gameObject.GetComponent<Image>().enabled = false;
 	}
-
-	/*
-	// Blinks the poisoned icon on and off
-	void BlinkIcon()
-	{
-		Debug.Log("BlinkIcon !!!");
-		gameObject.GetComponent<Image>().enabled = !gameObject.GetComponent<Image>().enabled;
-	}
-	*/
 }

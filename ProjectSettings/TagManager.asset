@@ -12,6 +12,7 @@ TagManager:
   - Fader
   - Water
   - WaterWaves
+  - Avatar Fireball
   layers:
   - Default
   - TransparentFX

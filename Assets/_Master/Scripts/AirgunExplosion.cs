@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AirgunExplosion : MonoBehaviour {
-	
-	void Start() {
+public class AirgunExplosion : MonoBehaviour 
+{
+	void Start() 
+	{
 		var exp = GetComponent<ParticleSystem>();
 		exp.Play();
-		Destroy(gameObject, exp.duration);
+		Destroy(gameObject, exp.duration);	// automatically destroy the particle system 
 	}
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
