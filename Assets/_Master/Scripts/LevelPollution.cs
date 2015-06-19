@@ -10,26 +10,24 @@ using System.Collections;
 
 public class LevelPollution : MonoBehaviour
 {
-	//GameObject gameObject;
+	public float alphaVal, levelTime;
+	public GameManager gameManager;
 
 	// Use this for initialization
 	private void Start()
 	{
-		//StartCoroutine (FadeScreen ());InvokeRepeating?
-		Color color = GetComponent<Renderer>().material.color;
-		color.a = 0.9f;
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-	
+		StartCoroutine("FadeScreen");
 	}
 
 	private IEnumerator FadeScreen()
 	{
-		Color color = GetComponent<Renderer>().material.color;
-		color.a = 0.5f;
-		yield return new WaitForSeconds(1);
+		for (int i = 0; i < levelTime; i++)
+		{
+			alphaVal = Mathf.Pow((i / levelTime), 2f);
+			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, alphaVal);
+			yield return new WaitForSeconds(1);
+		}
+		gameManager.LoseGame();
 	}
 }
 
