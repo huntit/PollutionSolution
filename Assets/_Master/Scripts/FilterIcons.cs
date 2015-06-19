@@ -1,8 +1,7 @@
 /* 
  * FilterIcons Script by Laura Yarnold
  * 
- * 
- * 
+ * Displays filter items to be collected on the GUI screen. Alpha changes from 25% to 100% when filter item is collected.
  */ 
 
 using UnityEngine;
@@ -11,13 +10,13 @@ using UnityEngine.UI;
 
 public class FilterIcons : MonoBehaviour 
 {
-	//
-//	public float filterPieceCount = 0f;
+	// Sets up number of filter icons collected to be set to 0; used to count how many Filter Items have been collected
 	public static int filterCount = 0;
-	public bool[] filterPartsCollected;
 
+	// Sets collected number of filter icons to be false (none are collected)
 	private bool collected = false;
 
+	// If a Filter Item is collected, the alpha of the corrosponding Filter icon will be set to be fully visible
 	public bool Collected
 	{
 		get { return collected; }
@@ -27,7 +26,7 @@ public class FilterIcons : MonoBehaviour
 			collected = value;
 			if (collected)
 			{
-				// set to full alpha
+				// Sets the alpha of the Filter icon to full, and adds to the filter count
 				Color currentColor = gameObject.GetComponent<Image>().color;
 				gameObject.GetComponent<Image>().color = new Color(currentColor.r, currentColor.g, currentColor.b, 1f);
 				filterCount++;
@@ -36,12 +35,9 @@ public class FilterIcons : MonoBehaviour
 	}
 
 
-	// Use this for initialization
-	void Start () 
+	// When initializatiing the game, finds the colour of each filter icon and set the alpha to 25%
+	void Start() 
 	{
-//		//Each piece of filter is placed permanently onto the level, set to Trigger
-//		//these are the sprites that show on HUD screen
-//		Set all FilterPartSprites to 50% saturation
 		Color currentColor = gameObject.GetComponent<Image>().color;
 		gameObject.GetComponent<Image>().color = new Color(currentColor.r, currentColor.g, currentColor.b, 0.25f);
 	}

@@ -1,8 +1,7 @@
 /* 
  * HealthBar Script by Laura Yarnold
  * 
- * Updates on-screen slider health bar
- * 
+ * Updates on-screen UI slider health bar; health bar is affected by touching ememies, poison and drowning. When health == 0, the avatar dies.
  */ 
 
 using UnityEngine;
@@ -11,36 +10,46 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour 
 {
-
-	private Slider healthSlider;
-	private float health = 100f;
-
+	// Creates the fillImage for the health bar slider to access; is a viaul indicator of health information
 	public Image fillImage;
+
+	// Sets the game manager to be gameManager; lets the healthBar script interact with the GameManager script
 	public GameManager gameManager;
 
+	// Creates a UI health bar slider that displays on the GUI
+	private Slider healthSlider;
+
+	// Sets health to full (100)
+	private float health = 100f;
+
+	//Contols the health of the avatar
 	public float Health
 	{
 		get { return health; }
 
 		set
 		{
-			// keep the health to be between 0 and 100
+			// Keeps the health to be between 0 and 100
 			health = Mathf.Clamp(value, 0f, 100f);
 
-			// update the slider with health value
+			// Updates the slider with health value
 			healthSlider.value = Health;
 
-			AudioSource audio = GetComponent<AudioSource>();	// get a reference to the AudioSource on this object
+			// Gets a reference to the AudioSource on this object
+			AudioSource audio = GetComponent<AudioSource>();
 
-			// if health is zero, then die
+			// If health is zero, then die
 			if (value <= 0f)
 			{
-				audio.Stop();	// don't play low health warning sound
-				gameManager.LoseGame();
+				// Stops the low health warning audio from playing
+				audio.Stop();
 
-				//load level, reset health to 100f
+				//Calls the game manager script to lose the game
+				gameManager.LoseGame();
 			} 
+
 			else if (health <= 30f) // change colour to red
+			
 			{
 				fillImage.color = new Color(1.0f, 0f, 0f);
 
