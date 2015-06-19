@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 		LoseScreen.SetActive(false);
 	}
 	
-	// Sets up condtions for pausing and resuming the game; switches between pause and resume when escape key is pressed
+	// Sets up conditions for pausing and resuming the game; switches between pause and resume when escape key is pressed
 	void Update() 
 	{
 		if (Input.GetButtonDown("Pause")) 
