@@ -9,13 +9,13 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour 
 {
-	// Creates access to a public UI game object - Pause UI 
+	// Create public access to a public UI game object - Pause UI 
 	public GameObject PauseUI;
 
-	// Creates access to a public UI game object - Win Screen 
+	// Create public access to a public UI game object - Win Screen 
 	public GameObject WinScreen;
 
-	// Creates access to a public UI game object - Lose Screen
+	// Create public access to a public UI game object - Lose Screen
 	public GameObject LoseScreen;
 
 	// Sets the Avatar contoller to be avatar
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 	// Makes sure the game does not display 'Game Over' settings
 	private bool gameOver = false;
 
-	//Sets all menu options to be set to false (eg Pause UI, Win Screen, Lose Screen)
+	//Sets all menu options to be set to false (eg Pause UI, Win Screen, Lose Screen) at the start of the game
 	void Start() 
 	{
 		PauseUI.SetActive(false);
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 		LoseScreen.SetActive(false);
 	}
 	
-	// Sets up condtions for pausing and resuming the game; switches between pause and resume
+	// Sets up condtions for pausing and resuming the game; switches between pause and resume when escape key is pressed
 	void Update() 
 	{
 		if (Input.GetButtonDown("Pause")) 
@@ -55,17 +55,17 @@ public class GameManager : MonoBehaviour
 		}
 	}		
 
-	//Method Pause Game sets the UI element PauseUI to be shown on screen, and sets time to be frozen
+	//Pause Game sets the UI element PauseUI to be shown on screen, and sets time to be frozen
 	public void PauseGame()
 	{
-		PauseUI.SetActive (true); // Shows Pause Panel
+		PauseUI.SetActive(true); // Shows Pause Panel
 		Time.timeScale = 0; // Pause game
 	}
 
 	// Hides the UI element PauseUI, and resets time to resume gameplay
 	public void ResumeGame()
 	{
-		PauseUI.SetActive (false); // Hides Pause Panel
+		PauseUI.SetActive(false); // Hides Pause Panel
 		Time.timeScale = 1; // Restart game
 	}
 

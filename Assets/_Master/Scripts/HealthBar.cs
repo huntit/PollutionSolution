@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour 
 {
-	// Creates the fillImage for the health bar slider to access; is a viaul indicator of health information
+	// Creates the fillImage for the health bar slider to access; is a vital indicator of health information
 	public Image fillImage;
 
 	// Sets the game manager to be gameManager; lets the healthBar script interact with the GameManager script
@@ -48,36 +48,41 @@ public class HealthBar : MonoBehaviour
 				gameManager.LoseGame();
 			} 
 
-			else if (health <= 30f) // change colour to red
+			// if health is less than 30, change colour to red
+			else if (health <= 30f) 
 			
 			{
 				fillImage.color = new Color(1.0f, 0f, 0f);
 
-				// health is low, so play warning sound loop
+				// When health is less than 30, play warning sound loop
 				if (!audio.isPlaying) 
 				{ 
-					audio.volume = 1f - health/100f;	// volume should get louder as health reduces
+					// Volume gets louder as health reduces
+					audio.volume = 1f - health / 100f;
 					audio.Play(); 
 				}	
 			}
-			else if (health <= 50f) // change colour to orange
+
+			// If health is less than 50, change colour to orange
+			else if (health <= 50f) 
 			{
 				fillImage.color = new Color(1.0f, 0.6f, 0f);
-				audio.Stop();	// don't play low health warning sound
+				// Stop playing low health warning sound
+				audio.Stop();
 			} 
-			else // change colour to green
+
+			else // Else change colour to green in every other case
 			{
 				fillImage.color = new Color(0f, 1.0f, 0f);
-				audio.Stop();	// don't play low health warning sound
+
+				// Stop playing low health warning sound
+				audio.Stop();	
 			}
 		}
-
-
 	}
-
+	// Gets the UI component Slider
 	void Start() 
 	{
 		healthSlider = GetComponent<Slider>();
 	}
-
 }
