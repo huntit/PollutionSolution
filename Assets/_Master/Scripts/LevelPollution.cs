@@ -47,3 +47,5 @@ public class LevelPollution : MonoBehaviour
  * Set opacity of quad to min(secondsElapsed/totalSecondsAllowed, 1),
  * increase secondsElapsed by 1, and then wait one second before repeating
  */
+
+// https://drive.google.com/file/d/0B-Rw4HNsjfjFV1JKZmZzMW1wbFE/view?usp=sharing
