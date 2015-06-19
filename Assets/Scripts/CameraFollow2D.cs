@@ -28,6 +28,8 @@ public class CameraFollow2D : MonoBehaviour
         transform.parent = null;
     }
 
+	// Move the camera with the target position
+	// Adjust for lookAheadFactor, return speed, move threshold and damping
 	private void Update()
     {
     	// only update lookahead pos if accelerating or changed direction

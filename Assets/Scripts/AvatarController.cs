@@ -5,9 +5,10 @@
  * This script controls avatar movement and abilities including left, right, jump (if grounded), double-jump (if air-borne) and shoot
  * If underswater, it includes swim and dash
  * Exposes public method Move() for calling from the PlayerInputController script
- * (Some ideas from the PlatformerCharacter2D script in the UnityStandardAssets._2D package)
+ * (Some ideas sourced from the PlatformerCharacter2D script in the UnityStandardAssets._2D package)
  * 
  */
+
 using System;
 using UnityEngine;
 using System.Collections;
@@ -43,7 +44,6 @@ public class AvatarController : MonoBehaviour
 	public AirBar airBar;							// reference to the UI air bar
 	public LevelPollution levelPollution;			// reference to the Level Pollution counter script
 	public GameObject projectile;					// Projectile prefab that the player shoots
-
 	public bool inWater;							// whether the avatar is in the water
 
 	private bool grounded;            				// whether or not the player is grounded
@@ -55,10 +55,11 @@ public class AvatarController : MonoBehaviour
 	private Transform shootingPosition;    		    // A position marking where to shoot projectiles from.
 	private Animator anim;            				// Reference to the avatar's animator component.
     private Rigidbody2D rb;							// Reference to the avatar's Rigidbody2D component
+
 	const float GROUNDED_RADIUS = .2f; 				// Radius of the overlap circle to determine if grounded
 
 
-	// Sets references used throughout the class
+	// Setup references used throughout the class
 	private void Awake()
 	{
          groundCheck = transform.Find("GroundCheck");
@@ -67,8 +68,9 @@ public class AvatarController : MonoBehaviour
          rb = GetComponent<Rigidbody2D>();
 	}
 
+
 	// Check if the avatar is grounded
-	// Set avatar animation parameters - for swim, grounded, vSpeed and inWater, so correct animation is playing
+	// Set avatar animation parameters - for swim, grounded, vSpeed and inWater - so correct animation is playing
 	private void FixedUpdate()
 	{
 		if (!inWater)	// If not underwater, check if the player is grounded, and set animation appropriately
@@ -94,8 +96,10 @@ public class AvatarController : MonoBehaviour
 		anim.SetBool("inWater", inWater);	// activate / deactivate the idle swim animation
 	}
 
+
 	// Check if the avatar has entered the water or waterwaves
-	// On entering the water, set inWater variable, modify gravity scale and play a splash sound
+	// On entering the water, set inWater variable to true, allow the avatar sprite to rotate, and reduce the gravity scale
+	// On entering waterwaves from outside the water, play a splash sound, show a splash particle effect and push the avatar down into the water
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Water")) 
@@ -110,30 +114,32 @@ public class AvatarController : MonoBehaviour
 			AudioSource audioSource = other.GetComponent("AudioSource") as AudioSource;
 			if (audioSource) { audioSource.Play(); }
 
-			// Instantitate the AirgunExplosion prefab particle effect
+			// Instantitate the AirgunExplosion prefab particle effect to act as a 'splash'
 			Instantiate (Resources.Load("AirgunExplosion"), transform.position, transform.rotation);	
 
-			rb.AddForce(new Vector2(0, -jumpForce /2f)); 		// Apply a downward force to push the avatar into the water
+			// Apply a downward force to push the avatar into the water
+			rb.AddForce(new Vector2(0, -jumpForce /2f)); 	
 		}
 	}
 
+
 	// Check if the avatar has exited the water
-	// On exiting the water, set inWater false, snap the avatar back to upright, modify gravity scale back to normal and pop the avatar out of the water
+	// On exiting water, set inWater to false, snap the avatar back to upright and disable rotation, modify gravity scale back to normal and pop the avatar out of the water
 	void OnTriggerExit2D(Collider2D other)
 	{
 		if (other.CompareTag("Water")) 
 		{ 
 			inWater = false; 
-
 			transform.rotation = Quaternion.Euler(Vector3.zero); // snap back to upright
-			rb.fixedAngle = true;
+			rb.fixedAngle = true;	// disable sprite rotation
 			rb.gravityScale = 2;	// put gravity back to normal
 
-			rb.AddForce(new Vector2(0f, jumpForce)); 		// Apply a vertical force to pop the avatar out of the water
+			// Apply a vertical force to pop the avatar out of the water
+			rb.AddForce(new Vector2(0f, jumpForce)); 		
 			PlaySoundEffect(jumpSound, 0.5f);
 		}
-
 	}
+
 
 	// Check if the avatar has collided with an enemy
 	// If so, apply a force to push them backwards, poison the avatar and enable invulnerability for a few seconds
@@ -147,17 +153,20 @@ public class AvatarController : MonoBehaviour
 			// push the player backwards
 			rb.AddForce(-Vector2.right * transform.localScale.x * 1000f * rb.gravityScale);
 
+			// enable temporary invulnerability and poison avatar
 			StartCoroutine(EnableInvulnerability());
 			poisonIcon.Poisoned = true;
 		}
 	}
 
 
-	// Called from PlayerInput Controller
-	// Calls Swim() if the avatar is in the water
-	// Moves the avatar left/right, jump, double-jump and shoot
-	// Only allows jump if the avatar is grounded, and double-jump if the avatar is in the air and not currently double-jumping
-	// Flips the player sprite if they change direction
+	/* 
+	 * Main avatar movement method 
+	 * Called from the FixedUpdate() method in PlayerInput Controller
+	 * Calls Swim() if the avatar is in the water, otherwise moves the avatar left/right, jump, double-jump and shoot
+	 * Only allows jump if the avatar is grounded, and double-jump if the avatar is in the air and not currently double-jumping
+	 * Flips the player sprite if they change direction
+	 */
 	public void Move(float moveH, float moveV, bool jump, bool shoot)
 	{
 		// Swim if in the water
@@ -193,12 +202,12 @@ public class AvatarController : MonoBehaviour
 			rb.AddForce(new Vector2(0f, jumpForce));
 			PlaySoundEffect(jumpSound, 0.8f);
 
-			// "Daring Fireball" special effect
+			// "Daring Fireball" fire jump special effect
 			// Instantiate the FireJump prefab particle effect
 			GameObject daringFireball = (Instantiate (Resources.Load("FireJump"), groundCheck.position, transform.rotation)) as GameObject;
 			daringFireball.tag = "Avatar Fireball";
 			daringFireball.layer = LayerMask.NameToLayer("Ground");
-			levelPollution.levelTime -= 1;	// add some pollution to the level for the fire jump (reduce available time)
+			levelPollution.levelTime -= 1;		// add some pollution to the level for using the fire jump (reduce available time)
         }
 		// Double-jump
 		else if (jump && CanDoubleJump()) 		
@@ -228,8 +237,7 @@ public class AvatarController : MonoBehaviour
 		else
 		{
 			anim.SetBool("Shoot", false);
-		}
-		
+		}	
 	}
 
 
@@ -237,9 +245,9 @@ public class AvatarController : MonoBehaviour
 	// Pressing 'shoot' applies a forward force for an underwater 'dash'
 	private void Swim(float moveH, float moveV, bool shoot)
 	{
-		transform.Rotate(Vector3.back * moveH * swimTurnSpeed);	// rotate the avatar
+		transform.Rotate(Vector3.back * moveH * swimTurnSpeed);	// horizontal axis - rotate the avatar
 		
-		// move the avatar forward
+		// vertical axis (up) - move the avatar forward
 		if (moveV > 0)
 		{
 			// Instantiate the BubbleUnderwater prefab particle effect
@@ -248,9 +256,9 @@ public class AvatarController : MonoBehaviour
 			rb.AddForce(transform.up * moveV * swimForce);
 		} 
 		
-		anim.SetBool("Swim", (moveV > 0));	// activate / de-activate the swim animation based on whether the player is swimming forward
+		anim.SetBool("Swim", (moveV > 0));	// activate/de-activate the swim animation based on whether the player is swimming forward
 		
-		// if shoot pressed underwater, do an underwter dash and use some air
+		// if shoot is pressed underwater, do an underwater dash and use up some air
 		if (shoot && CanUnderwaterDash())
 		{
 			PlaySoundEffect(doubleJumpSound, 1f);
@@ -265,6 +273,8 @@ public class AvatarController : MonoBehaviour
 		}
 	}
 
+
+	/** Utility Methods called by Move(), Swim() and animation events **/
 
 	// Flip the avatar horizontally
 	private void Flip()
@@ -294,6 +304,7 @@ public class AvatarController : MonoBehaviour
 		}
 	}
 
+
 	// Check if double-jump is allowed (ie. not currently double-jumping), there is enough air available to double-jump, and the avatar is not grounded
 	// If not, play buzzerSound
 	private bool CanDoubleJump()
@@ -308,6 +319,7 @@ public class AvatarController : MonoBehaviour
 			return false;
 		}
 	}
+
 
 	// Check if in the water, and there is enough air available to do an underwater dash
 	// If not, play buzzerSound
@@ -347,37 +359,7 @@ public class AvatarController : MonoBehaviour
 		airBar.Air -= airPerProjectile;	
 	}
 
-
-	// Utility method to play a sound effect at the player location, with the specified volume
-	private void PlaySoundEffect(AudioClip soundEffect, float volume)
-	{
-		if (soundEffect) { AudioSource.PlayClipAtPoint(soundEffect, transform.position, volume); }
-	}
-
-	// Called from PlayerWalk animation at the correct frame
-	public void PlayLeftFootSound() 
-	{
-		PlaySoundEffect(leftFootSound, 0.3f);
-	}
-
-	// Called from PlayerWalk animation at the correct frame
-	public void PlayRightFootSound() 
-	{
-		PlaySoundEffect(rightFootSound, 0.3f);
-	}
-
-	// Called from PlayerSwim animation at the correct frame
-	public void PlaySwimSound() 
-	{
-		PlaySoundEffect(swimSound, 1.0f);
-	}
-
-	// Called from GameManager when avatar dies
-	public void Die()
-	{
-		PlaySoundEffect(dieSound, 1.0f);
-	}
-
+	
 	// Enables invulnerability for approx 3 seconds, changes alpha and flashes sprite as invulnerability ends
 	private IEnumerator EnableInvulnerability()
 	{
@@ -391,9 +373,43 @@ public class AvatarController : MonoBehaviour
 			yield return new WaitForSeconds((i > 5) ? 0.15f : 0.4f);
 		}
 		gameObject.GetComponent<SpriteRenderer>().color = originalColor;
-
+		
 		invulnerable = false;
 	}
+	
+	
+	// Utility method to play a sound effect at the player location, with the specified volume
+	private void PlaySoundEffect(AudioClip soundEffect, float volume)
+	{
+		if (soundEffect) { AudioSource.PlayClipAtPoint(soundEffect, transform.position, volume); }
+	}
 
+
+	// Called from PlayerWalk animation at the correct frame
+	public void PlayLeftFootSound() 
+	{
+		PlaySoundEffect(leftFootSound, 0.3f);
+	}
+
+
+	// Called from PlayerWalk animation at the correct frame
+	public void PlayRightFootSound() 
+	{
+		PlaySoundEffect(rightFootSound, 0.3f);
+	}
+
+
+	// Called from PlayerSwim animation at the correct frame
+	public void PlaySwimSound() 
+	{
+		PlaySoundEffect(swimSound, 1.0f);
+	}
+
+
+	// Called from GameManager when avatar dies
+	public void Die()
+	{
+		PlaySoundEffect(dieSound, 1.0f);
+	}
 
 }

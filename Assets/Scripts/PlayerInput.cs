@@ -3,7 +3,7 @@
  * by Peter HuntrdAssets._2D package)
  * 
  * Handles player input in a cross platform manner, for controlling a 2D character, with left, right, shoot, jump and super-jump
- * (Some ideas from Platformer2DUserController script in the UnityStandard Package)
+ * (Some ideas sourced from Platformer2DUserController script in the UnityStandard Package)
  */
  
 using System;

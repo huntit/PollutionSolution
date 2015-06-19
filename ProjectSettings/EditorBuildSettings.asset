@@ -9,7 +9,3 @@ EditorBuildSettings:
     path: Assets/Scenes/Start Screen.unity
   - enabled: 1
     path: Assets/Scenes/Level01.unity
-  - enabled: 0
-    path: Assets/Laura/Scenes/Laura Staging.unity
-  - enabled: 0
-    path: Assets/Scenes/Testing/Level 1.unity
