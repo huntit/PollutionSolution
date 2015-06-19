@@ -21,7 +21,7 @@ public class LevelPollution : MonoBehaviour
 
 	private IEnumerator FadeScreen()
 	{
-		for (int i = 0; i < levelTime; i++)
+		for (int i = 0; i <= levelTime; i++)
 		{
 			alphaVal = Mathf.Pow((i / levelTime), 2f);
 			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, alphaVal);
