@@ -16,6 +16,7 @@ public class LevelEndTrigger : MonoBehaviour
 	{
 		if (collider.CompareTag("Avatar") && FilterIcons.filterCount == 4)
 		{
+			LevelPollution.levelWon = true;
 			gameManager.WinGame();
 		}
 	}

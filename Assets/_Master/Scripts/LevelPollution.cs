@@ -6,11 +6,14 @@
  */ 
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LevelPollution : MonoBehaviour
 {
-	public float alphaVal, levelTime;
+	private float alphaVal;
+	public float levelTime = 180f;
+	public static bool levelWon = false;
 	public GameManager gameManager;
 
 	// Use this for initialization
@@ -19,15 +22,15 @@ public class LevelPollution : MonoBehaviour
 		StartCoroutine("FadeScreen");
 	}
 
-	private IEnumerator FadeScreen()
+	public IEnumerator FadeScreen()
 	{
-		for (int i = 0; i <= levelTime; i++)
+		for (int i = 0; i <= levelTime && !levelWon; i++)
 		{
 			alphaVal = Mathf.Pow((i / levelTime), 2f);
-			gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, alphaVal);
+			gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, alphaVal);
 			yield return new WaitForSeconds(1);
 		}
-		gameManager.LoseGame();
+		if (!levelWon) {	gameManager.LoseGame(); }
 	}
 }
 
