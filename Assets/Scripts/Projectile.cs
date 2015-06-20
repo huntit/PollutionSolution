@@ -2,7 +2,7 @@
  * Projectile.cs
  * by Peter Hunt 
  * 
- * Script to control projectile - ie. sound effect, and destroy on impact
+ * Script to control avatar projectile - ie. sound effects, collision with enemy and destroy on impact
  */
 
 using UnityEngine;
@@ -43,7 +43,6 @@ public class Projectile : MonoBehaviour
 				particles.emissionRate = particles.emissionRate / 2f; 	// reduce the particle emission rate
 			}
 		}
-
 	}
 
 }

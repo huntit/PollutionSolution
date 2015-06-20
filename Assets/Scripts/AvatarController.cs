@@ -274,7 +274,7 @@ public class AvatarController : MonoBehaviour
 	}
 
 
-	/** Utility Methods called by Move(), Swim() and animation events **/
+	/** Utility Methods called by Move(), Swim() and animation and collision events **/
 
 	// Flip the avatar horizontally
 	private void Flip()
@@ -352,7 +352,7 @@ public class AvatarController : MonoBehaviour
 		// Apply force to fire the projectile
 		clone.GetComponent<Rigidbody2D>().AddForce(new Vector2(transform.localScale.x * projectileForce, 0f), ForceMode2D.Impulse);
 
-		// Instantitate the AirgunExplosion prefab particle effect
+		// Instantiate the AirgunExplosion prefab particle effect
 		Instantiate (Resources.Load("AirgunExplosion"), shootingPosition.position, transform.rotation);		
 
 		// reduce air
