@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 	// Sets the Avatar contoller to be avatar
 	public AvatarController avatar;
 
+	// Sound effect to play when game is won
+	public AudioClip winGameSound;
+
 	// Sets the current level to be 0 (the main screen)
 	private static int currentLevel = 0;
 
@@ -86,6 +89,7 @@ public class GameManager : MonoBehaviour
 	 * the WinScreen alive for 4 seconds, and sends a call to 'Wait For Level' function.*/
 	public void WinGame()
 	{
+		if (winGameSound) { AudioSource.PlayClipAtPoint(winGameSound, transform.position, 1.0f); }
 		WinScreen.SetActive(true);
 		StartCoroutine("WaitForLevel", 0);
 	}
@@ -101,8 +105,11 @@ public class GameManager : MonoBehaviour
 	// Quits the game; is used in the Start Menu and Pause Menu.
 	public void QuitGame()
 	{
-		UnityEditor.EditorApplication.isPlaying = false; //Stop when running in Editor
-		Application.Quit (); //Stop when running for real
+		#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;  // Stop when running in Editor
+		#endif
+
+		Application.Quit(); //Stop when running for real
 	}
 
 	/* WaitForLevel receives an interger from either the WinScreen or LoseScreen, waits for 4 seconds, 

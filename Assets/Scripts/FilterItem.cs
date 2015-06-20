@@ -16,14 +16,14 @@ public class FilterItem : MonoBehaviour {
 	{
 		if (other.CompareTag("Avatar"))
 		{
-			filterIcon.Collected = true;
-
 			// Play pickup sound
 			if (pickupSound) 
 			{ 
 				AudioSource.PlayClipAtPoint(pickupSound, transform.position);
 			}
 			Destroy(gameObject);
+
+			filterIcon.Collected = true;
 		}
 	}
 }

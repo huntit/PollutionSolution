@@ -15567,7 +15567,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 521279450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.3899994, y: -9.18000031, z: 0}
+  m_LocalPosition: {x: 40.7099991, y: -9.18000031, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1541573715}
@@ -33414,7 +33414,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11499892, guid: 42aeaaa5bdbc16b4e94bf8eff2bc2dec, type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42aeaaa5bdbc16b4e94bf8eff2bc2dec, type: 2}
@@ -36189,11 +36189,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11410538, guid: 9136e04d34c0efc4f8e12f72ecb7b19f, type: 2}
       propertyPath: m_FontData.m_FontSize
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11410538, guid: 9136e04d34c0efc4f8e12f72ecb7b19f, type: 2}
       propertyPath: m_Text
-      value: VICTORY !!
+      value: Victory!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9136e04d34c0efc4f8e12f72ecb7b19f, type: 2}
@@ -56157,6 +56157,7 @@ MonoBehaviour:
   WinScreen: {fileID: 185781897}
   LoseScreen: {fileID: 922747342}
   avatar: {fileID: 328791139}
+  winGameSound: {fileID: 8300000, guid: da3e634c1d6f74e3a885942fff1ccbf9, type: 3}
 --- !u!4 &1917221187
 Transform:
   m_ObjectHideFlags: 0
