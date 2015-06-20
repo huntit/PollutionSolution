@@ -1,0 +1,134 @@
+-debug
+-target:library
+-nowarn:0169
+-out:'Temp/Assembly-CSharp.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
+-r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/iossupport/UnityEditor.iOS.Extensions.Xcode.dll'
+-define:UNITY_5_0_2
+-define:UNITY_5_0
+-define:UNITY_5
+-define:ENABLE_LICENSE_RENAME
+-define:ENABLE_NEW_BUGREPORTER
+-define:ENABLE_2D_PHYSICS
+-define:ENABLE_4_6_FEATURES
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_DUCK_TYPING
+-define:ENABLE_FRAME_DEBUGGER
+-define:ENABLE_GENERICS
+-define:ENABLE_HOME_SCREEN
+-define:ENABLE_IMAGEEFFECTS
+-define:ENABLE_LIGHT_PROBES_LEGACY
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_NEW_HIERARCHY
+-define:ENABLE_PHYSICS
+-define:ENABLE_PHYSICS_PHYSX3
+-define:ENABLE_PLUGIN_INSPECTOR
+-define:ENABLE_SHADOWS
+-define:ENABLE_SINGLE_INSTANCE_BUILD_SETTING
+-define:ENABLE_SPRITES
+-define:ENABLE_TERRAIN
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_AUDIOMIXER_SUSPEND
+-define:ENABLE_NONPRO
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:INCLUDE_IL2CPP
+-define:PLATFORM_SUPPORTS_MONO
+-define:RENDER_SOFTWARE_CURSOR
+-define:UNITY_STANDALONE_OSX
+-define:UNITY_STANDALONE
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_GAMECENTER
+-define:ENABLE_TEXTUREID_MAP
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_MOVIES
+-define:ENABLE_NETWORK
+-define:ENABLE_MONO
+-define:ENABLE_PROFILER
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_64
+-define:UNITY_EDITOR_OSX
+-define:CROSS_PLATFORM_INPUT
+'Assets/Other/Jason/Assets/Scripts/BodyPart.cs'
+'Assets/Other/Jason/Assets/Scripts/Explode.cs'
+'Assets/Other/Jason/Assets/Scripts/Player.cs'
+'Assets/Other/Jason/Assets/Scripts/PlayerController.cs'
+'Assets/Other/Jason/Assets/Scripts/RandomSprite.cs'
+'Assets/Other/Jason/Scripts/JasonTest.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/AxisTouchButton.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/ButtonHandler.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/CrossPlatformInputManager.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/InputAxisScrollbar.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/Joystick.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/MobileControlRig.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/PlatformSpecific/MobileInput.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/PlatformSpecific/StandaloneInput.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/TiltInput.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/TouchPad.cs'
+'Assets/Other/Standard Assets/CrossPlatformInput/Scripts/VirtualInput.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/AfterburnerPhysicsForce.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/ExplosionFireAndDebris.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/ExplosionPhysicsForce.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/Explosive.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/ExtinguishableParticleSystem.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/FireLight.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/Hose.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/ParticleSystemMultiplier.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/SmokeParticles.cs'
+'Assets/Other/Standard Assets/ParticleSystems/Scripts/WaterHoseParticles.cs'
+'Assets/Other/Standard Assets/Utility/ActivateTrigger.cs'
+'Assets/Other/Standard Assets/Utility/AutoMobileShaderSwitch.cs'
+'Assets/Other/Standard Assets/Utility/AutoMoveAndRotate.cs'
+'Assets/Other/Standard Assets/Utility/CameraRefocus.cs'
+'Assets/Other/Standard Assets/Utility/CurveControlledBob.cs'
+'Assets/Other/Standard Assets/Utility/DragRigidbody.cs'
+'Assets/Other/Standard Assets/Utility/DynamicShadowSettings.cs'
+'Assets/Other/Standard Assets/Utility/FOVKick.cs'
+'Assets/Other/Standard Assets/Utility/FPSCounter.cs'
+'Assets/Other/Standard Assets/Utility/FollowTarget.cs'
+'Assets/Other/Standard Assets/Utility/ForcedReset.cs'
+'Assets/Other/Standard Assets/Utility/LerpControlledBob.cs'
+'Assets/Other/Standard Assets/Utility/ObjectResetter.cs'
+'Assets/Other/Standard Assets/Utility/ParticleSystemDestroyer.cs'
+'Assets/Other/Standard Assets/Utility/PlatformSpecificContent.cs'
+'Assets/Other/Standard Assets/Utility/SimpleActivatorMenu.cs'
+'Assets/Other/Standard Assets/Utility/SimpleMouseRotator.cs'
+'Assets/Other/Standard Assets/Utility/SmoothFollow.cs'
+'Assets/Other/Standard Assets/Utility/TimedObjectActivator.cs'
+'Assets/Other/Standard Assets/Utility/TimedObjectDestructor.cs'
+'Assets/Other/Standard Assets/Utility/WaypointCircuit.cs'
+'Assets/Other/Standard Assets/Utility/WaypointProgressTracker.cs'
+'Assets/Scripts/AirBar.cs'
+'Assets/Scripts/AirCanister.cs'
+'Assets/Scripts/AirgunExplosion.cs'
+'Assets/Scripts/Animate.cs'
+'Assets/Scripts/AvatarController.cs'
+'Assets/Scripts/CameraFollow2D.cs'
+'Assets/Scripts/Door.cs'
+'Assets/Scripts/DoorTrigger.cs'
+'Assets/Scripts/Enemy.cs'
+'Assets/Scripts/EnemyB.cs'
+'Assets/Scripts/FilterIcons.cs'
+'Assets/Scripts/FilterItem.cs'
+'Assets/Scripts/GameManager.cs'
+'Assets/Scripts/HealthBar.cs'
+'Assets/Scripts/HealthPack.cs'
+'Assets/Scripts/LevelEndTrigger.cs'
+'Assets/Scripts/LevelPollution.cs'
+'Assets/Scripts/LookForward.cs'
+'Assets/Scripts/MoveForward.cs'
+'Assets/Scripts/Parallax.cs'
+'Assets/Scripts/Platform.cs'
+'Assets/Scripts/PlayerInput.cs'
+'Assets/Scripts/PoisonIcon.cs'
+'Assets/Scripts/Projectile.cs'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Runtime.Serialization.dll'
+-r:'/Applications/Unity/Unity.app/Contents/Frameworks/Mono/lib/mono/unity/System.Xml.Linq.dll'
