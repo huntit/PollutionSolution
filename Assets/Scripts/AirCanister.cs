@@ -16,9 +16,9 @@ public class AirCanister : MonoBehaviour
 
 	[Range(0, 25)] public float airAmount = 15f;
 
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (collider.CompareTag("Avatar"))
+		if (other.CompareTag("Avatar"))
 		{
 			airBar.Air += airAmount;
 			/*Added by Peter start*/

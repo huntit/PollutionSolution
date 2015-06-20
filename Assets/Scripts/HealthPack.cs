@@ -12,13 +12,13 @@ using System.Collections;
 public class HealthPack : MonoBehaviour
 {
 	public HealthBar healthBar;
-	public AudioClip pickupSound;	// sound to play when healthpack picked up
+	public AudioClip pickupSound;	// sound to play when healthpack picked up (Peter)
 
 	[Range(1, 20)] public float healthAmount = 10f;
 
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (collider.CompareTag("Avatar"))
+		if (other.CompareTag("Avatar"))
 		{
 			healthBar.Health += healthAmount;
 			/*Added by Peter start*/

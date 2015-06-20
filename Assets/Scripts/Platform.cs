@@ -43,15 +43,15 @@ public class Platform : MonoBehaviour
 
 	/*Added by Peter start*/
 	// If an object collides with the trigger at the top of the platform, make it move with the platform
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
-		collider.transform.parent = transform;	// make the object move with this platform by making this its parent 
+		other.transform.parent = transform;	// make the object move with this platform by making this its parent 
 	}
 
 	// When an object leaves the platform, stop it from moving with the platform
-	private void OnTriggerExit2D(Collider2D collider)
+	private void OnTriggerExit2D(Collider2D other)
 	{
-		collider.transform.parent = null;	// stop making it move with this platform
+		other.transform.parent = null;	// stop making it move with this platform
 	}
 	/*Added by Peter end*/
 }

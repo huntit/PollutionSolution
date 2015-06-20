@@ -24,9 +24,9 @@ public class FilterItem : MonoBehaviour {
 				AudioSource.PlayClipAtPoint(pickupSound, transform.position);
 			}
 			/*Added by Peter end*/
-			Destroy(gameObject);
 
 			filterIcon.Collected = true;
+			Destroy(gameObject);
 		}
 	}
 }

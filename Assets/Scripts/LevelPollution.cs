@@ -13,7 +13,7 @@ using System.Collections;
 
 public class LevelPollution : MonoBehaviour
 {
-	private float alphaVal;
+	private float alphaValue;
 	public float levelTime = 180f; // How long the level can go for in seconds.
 	public static bool levelWon = false;
 	public GameManager gameManager;
@@ -31,8 +31,8 @@ public class LevelPollution : MonoBehaviour
 		for (int i = 0; i <= levelTime && !levelWon; i++)
 		{
 			// Makes the darkness exponential towards the end of the level, and keeps visibilty high during the start
-			alphaVal = Mathf.Pow((i / levelTime), 2f);
-			gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, alphaVal);
+			alphaValue = Mathf.Pow((i / levelTime), 2f);
+			gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, alphaValue);
 
 			/*Added by Peter start*/
 			// play clock ticking sound when time is running out

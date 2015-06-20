@@ -13,10 +13,10 @@ public class LevelEndTrigger : MonoBehaviour
 {
 	public GameManager gameManager;
 
-	private void OnTriggerEnter2D(Collider2D collider)
+	private void OnTriggerEnter2D(Collider2D other)
 	{
 		// Make sure it's the player going through the trigger, and that they have all four filter parts
-		if (collider.CompareTag("Avatar") && FilterIcons.filterCount >= 4)
+		if (other.CompareTag("Avatar") && FilterIcons.filterCount >= 4)
 		{
 			LevelPollution.levelWon = true; // Stop pollution from darkening screen further
 			gameManager.WinGame();
