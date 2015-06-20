@@ -2,6 +2,8 @@
  * LevelPollution.cs
  * By Max Finn
  * 
+ * A representation of the pollution in the level, which worsens faster as time goes on.
+ * Once the level turns completely black, the player automatically loses.
  * 
  */ 
 
@@ -12,10 +14,10 @@ using System.Collections;
 public class LevelPollution : MonoBehaviour
 {
 	private float alphaVal;
-	public float levelTime = 180f;
+	public float levelTime = 180f; // How long the level can go for in seconds.
 	public static bool levelWon = false;
 	public GameManager gameManager;
-	public AudioClip levelEndSound;		// sound to play when pollution has taken over the level
+	public AudioClip levelEndSound;		// sound to play when pollution has taken over the level (Peter)
 
 	// Use this for initialization
 	private void Start()
@@ -23,13 +25,16 @@ public class LevelPollution : MonoBehaviour
 		StartCoroutine("FadeScreen");
 	}
 
+	// Gradually ramps up the opacity of the black pollution square until the entire screen is pure black, and the player loses
 	public IEnumerator FadeScreen()
 	{
 		for (int i = 0; i <= levelTime && !levelWon; i++)
 		{
+			// Makes the darkness exponential towards the end of the level, and keeps visibilty high during the start
 			alphaVal = Mathf.Pow((i / levelTime), 2f);
 			gameObject.GetComponent<Image>().color = new Color(1f, 1f, 1f, alphaVal);
 
+			/*Added by Peter start*/
 			// play clock ticking sound when time is running out
 			int timeLeft = (int)(levelTime - i);
 			if (timeLeft <= 30)
@@ -46,29 +51,11 @@ public class LevelPollution : MonoBehaviour
 			{
 				GetComponent<AudioSource>().Stop();
 			}
+			/*Added by Peter end*/
 
-			yield return new WaitForSeconds(1);
+			yield return new WaitForSeconds(1); // Change the darkness only once per second
 		}
 
-		if (!levelWon) { gameManager.LoseGame(); }
+		if (!levelWon) { gameManager.LoseGame(); } // Prevents loss during the "You Won!" screen
 	}
 }
-
-/*
- * This script makes the level progressively obscured by pollution (a black quad)
- * over the course of five minutes, at which point the screen is completely covered and the player will lose.
- * 
- * int secondsElapsed = 0
- * int totalSecondsAllowed = 300
- * Start()
- * Call FadeScreen() coroutine
- *
- * Update()
- * if secondsElapsed >= totalSecondsAllowed, call GameManager.LoseGame()
- *
- * IEnumerator FadeScreen()
- * Set opacity of quad to min(secondsElapsed/totalSecondsAllowed, 1),
- * increase secondsElapsed by 1, and then wait one second before repeating
- */
-
-// https://drive.google.com/file/d/0B-Rw4HNsjfjFV1JKZmZzMW1wbFE/view?usp=sharing

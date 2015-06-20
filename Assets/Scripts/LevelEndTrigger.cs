@@ -2,6 +2,7 @@
  * LevelEndTrigger.cs
  * By Max Finn
  * 
+ * When the player runs through this with all filter parts collected, they clear the level.
  * 
  */ 
 
@@ -14,9 +15,10 @@ public class LevelEndTrigger : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collider)
 	{
+		// Make sure it's the player going through the trigger, and that they have all four filter parts
 		if (collider.CompareTag("Avatar") && FilterIcons.filterCount >= 4)
 		{
-			LevelPollution.levelWon = true;
+			LevelPollution.levelWon = true; // Stop pollution from darkening screen further
 			gameManager.WinGame();
 		}
 	}
